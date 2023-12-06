@@ -1,3 +1,5 @@
+.idea/*
+*.log
 configs/hosts.ini
 configs/admins.ini
 configs/cvars.ini
