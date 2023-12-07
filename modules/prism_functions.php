@@ -10,35 +10,9 @@ function console($line, $EOL = true, $fgcolor = "light_gray", $bgcolor = "black"
     //
     // In Linux use a ANSI supported terminal like for example SecureCRT
 
-    $ansi_fgcolor_arr = array(
-                            "black"         => "0;30",
-                            "dark_gray"     => "1;30",
-                            "red"           => "0;31",
-                            "light_red"     => "1;31",
-                            "green"         => "0;32",
-                            "light_green"   => "1;32",
-                            "brown"         => "0;33",
-                            "yellow"        => "1;33",
-                            "blue"          => "0;34",
-                            "light_blue"    => "1;34",
-                            "purple"        => "0;35",
-                            "light_purple"  => "1;35",
-                            "cyan"          => "0;36",
-                            "light_cyan"    => "1;36",
-                            "light_gray"    => "0;37",
-                            "white"         => "1;37"
-                            );
+    $ansi_fgcolor_arr = ["black"         => "0;30", "dark_gray"     => "1;30", "red"           => "0;31", "light_red"     => "1;31", "green"         => "0;32", "light_green"   => "1;32", "brown"         => "0;33", "yellow"        => "1;33", "blue"          => "0;34", "light_blue"    => "1;34", "purple"        => "0;35", "light_purple"  => "1;35", "cyan"          => "0;36", "light_cyan"    => "1;36", "light_gray"    => "0;37", "white"         => "1;37"];
 
-    $ansi_bgcolor_arr = array(
-                            "black"         => "40",
-                            "red"           => "41",
-                            "green"         => "42",
-                            "yellow"        => "43",
-                            "blue"          => "44",
-                            "magenta"       => "45",
-                            "cyan"          => "46",
-                            "light_gray"    => "47"
-                            );
+    $ansi_bgcolor_arr = ["black"         => "40", "red"           => "41", "green"         => "42", "yellow"        => "43", "blue"          => "44", "magenta"       => "45", "cyan"          => "46", "light_gray"    => "47"];
 
     echo "\033[" . $ansi_fgcolor_arr[$fgcolor] . "m\033[" . $ansi_bgcolor_arr[$bgcolor] . "m" . $line . "\033[0m" . (($EOL) ? PHP_EOL : '');
 }
@@ -65,7 +39,7 @@ function get_dir_structure($path, $recursive = TRUE, $ext = NULL)
                     }
                     else
                     {
-                        $return[$item] = array();
+                        $return[$item] = [];
                     }
                 }
                 else
@@ -140,8 +114,8 @@ function validatePHPFile($file)
 {
     // Validate script
     $fileContents = file_get_contents($file);
-    if (!eval('return true;'.preg_replace(array('/^<\?(php)?/', '/\?>$/'), '', $fileContents)))
-        return array(false, array('Errors parsing '.$file));
+    if (!eval('return true;'.preg_replace(['/^<\?(php)?/', '/\?>$/'], '', $fileContents)))
+        return [false, ['Errors parsing '.$file]];
 
     // Validate any require_once or include_once files.
 //    $matches = array();
@@ -155,7 +129,7 @@ function validatePHPFile($file)
 //            return $result;
 //    }
 
-    return array(true, array());
+    return [true, []];
 }
 
 function flagsToInteger($flagsString = '')

@@ -12,7 +12,7 @@ class TimingAndScoring extends Plugins
 		$this->registerPacket('onSplit', ISP_LAP, ISP_SPX);
 	}
 
-	private $Splits = array();
+	private $Splits = [];
 
 	public function onSplit(Struct $SLP)
 	{	# ISP_LAP & ISP_SPX
@@ -74,7 +74,7 @@ class TimingAndScoring extends Plugins
 		$bΔ->BStyle |= ISB_DARK + ISB_RIGHT;
 		$bΔ->Text($sΔ)->send();
 	
-		$this->createTimer('OSR', 10, Timer::CLOSE, array($iUCID));
+		$this->createTimer('OSR', 10, Timer::CLOSE, [$iUCID]);
 	}
 
 	public function OSR($iUCID)

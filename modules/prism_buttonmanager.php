@@ -35,7 +35,7 @@ class ButtonManager
         }
     }
 
-    private static $buttons = array();
+    private static $buttons = [];
 
     /** Called by Button->send(). Assigns unique clickId. */
     public static function registerButton(Button $BTN, $hostId = null)
@@ -56,7 +56,7 @@ class ButtonManager
         // make sure hostid is set in array
         if (!isset(self::$buttons[$hostId]))
         {
-            self::$buttons[$hostId] = array();
+            self::$buttons[$hostId] = [];
         }
 
         if ($BTN->UCID == 255) {
@@ -249,7 +249,7 @@ class ButtonManager
             $hostId = $PRISM->hosts->curHostID;
         }
 
-        $buttons = array();
+        $buttons = [];
 
         if (isset(self::$buttons[$hostId][$UCID]))
         {
@@ -308,7 +308,7 @@ class ButtonManager
 
         if (!isset(self::$buttons[$hostId]))
         {
-            self::$buttons[$hostId] = array();
+            self::$buttons[$hostId] = [];
         }
 
         return self::$buttons[$hostId];
@@ -334,7 +334,7 @@ class ButtonManager
 
 // Area reserving
 
-    private static $reservedAreas = array();
+    private static $reservedAreas = [];
 
     /**
      * Reserves an area for button display.
@@ -370,12 +370,7 @@ class ButtonManager
             }
         }
 
-        self::$reservedAreas[] = array(
-            'L' => $L,
-            'T' => $T,
-            'W' => $W,
-            'H' => $H
-        );
+        self::$reservedAreas[] = ['L' => $L, 'T' => $T, 'W' => $W, 'H' => $H];
 
         return true;
     }

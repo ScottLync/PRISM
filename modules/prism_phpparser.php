@@ -9,8 +9,8 @@ define('PRISM_SESSION_TIMEOUT', 900);        // how long a session is valid
 
 class PHPParser
 {
-    private static $scriptCache = array();
-    private static $sessions = array();
+    private static $scriptCache = [];
+    private static $sessions = [];
 
     public static function parseFile(HttpResponse &$RESPONSE, $file, array $SERVER, array &$GET, array &$POST, array &$COOKIE, array &$FILES)
     {
@@ -42,14 +42,14 @@ class PHPParser
             $parseResult = validatePHPFile($PRISM->http->getDocRoot().$file);
             if ($parseResult[0]) {
                 // Run the script from disk
-                $prismPhpScript = preg_replace(array('/^<\?(php)?/', '/\?>$/'), '', file_get_contents($PRISM->http->getDocRoot().$file));
+                $prismPhpScript = preg_replace(['/^<\?(php)?/', '/\?>$/'], '', file_get_contents($PRISM->http->getDocRoot().$file));
                 ob_start();
                 eval($prismPhpScript);
                 $html = ob_get_contents();
                 ob_end_clean();
 
                 // Cache the php file
-                self::$scriptCache[$prismScriptNameHash] = array($prismScriptMTime, $prismPhpScript);
+                self::$scriptCache[$prismScriptNameHash] = [$prismScriptMTime, $prismPhpScript];
             } else {
                 $eol = "\r\n";
                 $html = '<html>'.$eol;
@@ -66,7 +66,7 @@ class PHPParser
         // Should we store the session?
         if (isset($_SESSION) && $_SESSION != '') {
             $sessionID = sha1(createRandomString(128, RAND_BINARY).time());
-            self::$sessions[$sessionID] = array(time() + PRISM_SESSION_TIMEOUT, $SERVER['REMOTE_ADDR'], $_SESSION);
+            self::$sessions[$sessionID] = [time() + PRISM_SESSION_TIMEOUT, $SERVER['REMOTE_ADDR'], $_SESSION];
             $RESPONSE->setCookie('PrismSession', $sessionID, time() + PRISM_SESSION_TIMEOUT, '/', $SERVER['SERVER_NAME']);
         } else if (isset($COOKIE['PrismSession'])) {
             $RESPONSE->setCookie('PrismSession', '', 0, '/', $SERVER['SERVER_NAME']);

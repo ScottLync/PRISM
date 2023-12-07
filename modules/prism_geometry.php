@@ -19,10 +19,10 @@ class Point2D
 
 class Polygon2D
 {
-    public $points      = array();
+    public $points      = [];
     public $numPoints   = 0;
 
-    public function __construct(array $points = array())
+    public function __construct(array $points = [])
     {
         $this->points       = $points;
         $this->numPoints    = count($points);

@@ -15,7 +15,7 @@ class Translations extends Timers
         translateEngine::clearCache($this->lang_subdirectory);
     }
 
-    protected function translateGlobalMessage($messageID, $args = array(), $hostID = null)
+    protected function translateGlobalMessage($messageID, $args = [], $hostID = null)
     {
         if (($clients = $this->getHostState($hostID)->clients) && $clients !== null) {
             foreach ($clients as $UCID => $client) {
@@ -24,14 +24,14 @@ class Translations extends Timers
         }
     }
 
-    protected function translatePrivateMessage($UCID, $messageID, $args = array(), $hostID = null)
+    protected function translatePrivateMessage($UCID, $messageID, $args = [], $hostID = null)
     {
         $MTC = IS_MTC()->UCID($UCID);
         $MTC->Text($this->translateText($UCID, $messageID, $args, $hostID = null));
         $MTC->send($hostID);
     }
 
-    protected function translateText($UCID, $messageID, $args = array(), $hostID = null)
+    protected function translateText($UCID, $messageID, $args = [], $hostID = null)
     {
         if(!isset($this->lang_subdirectory)){
             console('Calling plugin does not have it\'s language directory specifed.');
@@ -43,7 +43,7 @@ class Translations extends Timers
 }
 
 class translateEngine {
-    private static $langCache = array();
+    private static $langCache = [];
 
     public static function clearCache($lang_subdirectory){
         console('TranslationEngine: ', false, 'red');
@@ -51,7 +51,7 @@ class translateEngine {
         unset(self::$langCache[$lang_subdirectory]);
     }
 
-    public static function translate($lang_subdirectory, $languageID, $messageID, $args = array(), $fallback = LANG_EN)
+    public static function translate($lang_subdirectory, $languageID, $messageID, $args = [], $fallback = LANG_EN)
     {
         global $LANG;
 

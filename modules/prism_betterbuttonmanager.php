@@ -2,9 +2,9 @@
 class betterButtonManager
 {
     protected $UCID;
-    protected $bTexts = array();
-    protected $bState = array();
-    protected $cData = array();
+    protected $bTexts = [];
+    protected $bState = [];
+    protected $cData = [];
 
     /* public __construct($UCID) {{{ */
     /**
@@ -202,7 +202,7 @@ class betterButtonManager
         if(!isset($this->cData[$Cluster])) {
             return PLUGIN_CONTINUE; #Cluster Not Loaded
         }
-        return array($this->cData[$Cluster]);
+        return [$this->cData[$Cluster]];
     }
     /* }}} */
 
@@ -395,9 +395,9 @@ class betterButtonManager
      */
     public function __destruct()
     {
-        $this->bTexts = array();
-        $this->bState = array();
-        $this->cData = array();
+        $this->bTexts = [];
+        $this->bState = [];
+        $this->cData = [];
         ButtonManager::clearButtonsForConn($this->UCID);
     }
     /* }}} */

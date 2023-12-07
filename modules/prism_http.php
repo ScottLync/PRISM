@@ -19,12 +19,12 @@ define('HTTP_MAX_CONN', 1024);                        // Max number of simultane
 class HttpHandler extends SectionHandler
 {
     private $httpSock        = NULL;
-    private $httpClients    = array();
+    private $httpClients    = [];
     private $httpNumClients    = 0;
 
-    private $httpVars        = array();
+    private $httpVars        = [];
     public $cache            = null;
-    private $nonceCache        = array();
+    private $nonceCache        = [];
 
     private $docRoot        = '';
     private $logFile        = '';
@@ -42,14 +42,10 @@ class HttpHandler extends SectionHandler
 
     public function &getHttpInfo()
     {
-        $info = array();
+        $info = [];
         foreach ($this->httpClients as $k => $v)
         {
-            $info[] = array(
-                'ip' => $v->getRemoteIP(),
-                'port' => $v->getRemotePort(),
-                'lastActivity' => $v->getLastActivity(),
-            );
+            $info[] = ['ip' => $v->getRemoteIP(), 'port' => $v->getRemotePort(), 'lastActivity' => $v->getLastActivity()];
         }
         return $info;
     }
@@ -84,13 +80,13 @@ class HttpHandler extends SectionHandler
         if (!isset($this->nonceCache[$nonce]))
             return false;
 
-        return array($this->nonceCache[$nonce][0], $this->nonceCache[$nonce][1], $this->nonceCache[$nonce][2]);
+        return [$this->nonceCache[$nonce][0], $this->nonceCache[$nonce][1], $this->nonceCache[$nonce][2]];
     }
 
     public function addNewNonce(&$nonce)
     {
         $opaque = createRandomString(16, RAND_HEX);
-        $this->nonceCache[$nonce] = array(time(), 0, $opaque);
+        $this->nonceCache[$nonce] = [time(), 0, $opaque];
         return $opaque;
     }
 
@@ -130,16 +126,7 @@ class HttpHandler extends SectionHandler
     {
         global $PRISM;
 
-        $this->httpVars = array
-        (
-            'ip'            => '',
-            'port'            => 0,
-            'path'            => 'www-docs',
-            'siteDomain'    => '',
-            'httpAuthPath'    => '',
-            'httpAuthType'    => 'Digest',
-            'logFile'        => 'logs/http.log',
-        );
+        $this->httpVars = ['ip'            => '', 'port'            => 0, 'path'            => 'www-docs', 'siteDomain'    => '', 'httpAuthPath'    => '', 'httpAuthType'    => 'Digest', 'logFile'        => 'logs/http.log'];
 
         if ($this->loadIniFile($this->httpVars, false))
         {
@@ -163,7 +150,7 @@ class HttpHandler extends SectionHandler
 ;
 
 ININOTES;
-            if ($this->createIniFile('HTTP Configuration (web admin)', array('http' => &$this->httpVars), $extraInfo))
+            if ($this->createIniFile('HTTP Configuration (web admin)', ['http' => &$this->httpVars], $extraInfo))
                 console('Generated config/'.$this->iniFile);
         }
 
@@ -692,7 +679,7 @@ class HttpClient
                 $this->write($r->getHeaders());
                 $this->write($r->getBody());
 
-                $this->logRequest($r->getResponseCode(), (($r->getHeader('Content-Length')) ? $r->getHeader('Content-Length') : 0));
+                $this->logRequest($r->getResponseCode(), ($r->getHeader('Content-Length') ?: 0));
             }
             else
             {
@@ -744,7 +731,7 @@ class HttpClient
             $this->write($r->getHeaders());
             $this->write($r->getBody());
             $errNo = 404;
-            $this->logRequest($r->getResponseCode(), (($r->getHeader('Content-Length')) ? $r->getHeader('Content-Length') : 0));
+            $this->logRequest($r->getResponseCode(), ($r->getHeader('Content-Length') ?: 0));
             return false;
         }
 
@@ -776,7 +763,7 @@ class HttpClient
                 $this->write($r->getHeaders());
                 $this->write($r->getBody());
                 $errNo = 401;
-                $this->logRequest($r->getResponseCode(), (($r->getHeader('Content-Length')) ? $r->getHeader('Content-Length') : 0));
+                $this->logRequest($r->getResponseCode(), ($r->getHeader('Content-Length') ?: 0));
 
                 $this->httpRequest = null;
                 return true;        // we return true this time because we may stay connected
@@ -856,7 +843,7 @@ class HttpClient
         }
 
         // log line
-        $this->logRequest($r->getResponseCode(), (($r->getHeader('Content-Length')) ? $r->getHeader('Content-Length') : 0));
+        $this->logRequest($r->getResponseCode(), ($r->getHeader('Content-Length') ?: 0));
 
         // Reset httpRequest
         $this->httpRequest = null;
@@ -881,11 +868,11 @@ class HttpClient
             $cacheControl =
                 isset($this->httpRequest->headers['Cache-Control']) ?
                 $this->httpRequest->parseHeaderValue($this->httpRequest->headers['Cache-Control']) :
-                array();
+                [];
             $pragma =
                 isset($this->httpRequest->headers['Pragma']) ?
                 $this->httpRequest->parseHeaderValue($this->httpRequest->headers['Pragma']) :
-                array();
+                [];
 
             // Detect 'If-Modified-Since' (weak) cache validator (http1.1)
             if ($ifModifiedSince > 0)
@@ -974,11 +961,11 @@ class HttpClient
     {
         global $PRISM;
 
-        $matches = array();
+        $matches = [];
         if (preg_match('/^Digest (.*)$/', $this->httpRequest->SERVER['HTTP_AUTHORIZATION'], $matches))
         {
             // Digest method
-            $info = array();
+            $info = [];
             $infoTmp = $this->httpRequest->parseHeaderValue($matches[1]);
             foreach ($infoTmp as $a => $b)
             {
@@ -1147,14 +1134,14 @@ class HttpRequest
     public $errNo            = 0;
     public $errStr            = '';
 
-    public $headers            = array();        // This will hold all of the request headers from the clients browser.
-    private $tmpFiles        = array();
+    public $headers            = [];        // This will hold all of the request headers from the clients browser.
+    private $tmpFiles        = [];
 
-    public $SERVER            = array();
-    public $GET                = array();        // With these arrays we try to recreate php's global vars a bit.
-    public $POST            = array();
-    public $FILES            = array();
-    public $COOKIE            = array();
+    public $SERVER            = [];
+    public $GET                = [];        // With these arrays we try to recreate php's global vars a bit.
+    public $POST            = [];
+    public $FILES            = [];
+    public $COOKIE            = [];
 
     public function __construct()
     {
@@ -1340,7 +1327,7 @@ class HttpRequest
 
     private function parseSubHeaders(&$headers)
     {
-        $parsed = array();
+        $parsed = [];
 
         // Split header lines
         $lines = explode("\r\n", $headers);
@@ -1383,12 +1370,12 @@ class HttpRequest
             if (count($items) == 1)
                 return $header;
             else
-                return array(trim($items[0]) => $items[1]);
+                return [trim($items[0]) => $items[1]];
         }
         if (count($items) == 1)
             return $this->parseHeaderValue($header, $level + 1);
 
-        $parsed = array();
+        $parsed = [];
 
         foreach ($items as $k => $v)
         {
@@ -1404,7 +1391,7 @@ class HttpRequest
             return false;
 
         // Split?
-        $parsed = array();
+        $parsed = [];
         $exp = explode(';', $header);
         $parsed['mediaType']    = $exp[0];
         $parsed['boundary']        = isset($exp[1]) ? explode('=', $exp[1]) : false;
@@ -1490,7 +1477,7 @@ class HttpRequest
             if (preg_match('/^(.*)\[(.*)\]$/', $key, $matches))
             {
                 if (!isset($this->POST[$matches[1]]))
-                    $this->POST[$matches[1]] = array();
+                    $this->POST[$matches[1]] = [];
 
                 if ($matches[2] == '')
                     $this->POST[$matches[1]][] = $value;
@@ -1554,13 +1541,7 @@ class HttpRequest
                     // Create entry array if not yet exists
                     if (!isset($this->FILES[$matches[1]]))
                     {
-                        $this->FILES[$matches[1]] = array(
-                            'name'        => array(),
-                            'tmp_name'    => array(),
-                            'type'        => array(),
-                            'size'        => array(),
-                            'error'        => array(),
-                        );
+                        $this->FILES[$matches[1]] = ['name'        => [], 'tmp_name'    => [], 'type'        => [], 'size'        => [], 'error'        => []];
                     }
 
                     // Fill in the values
@@ -1583,13 +1564,7 @@ class HttpRequest
                 }
                 else
                 {
-                    $this->FILES[$key] = array(
-                        'name'        => $fileName,
-                        'tmp_name'    => $tmpFileName,
-                        'type'        => $contentType,
-                        'size'        => strlen($value),
-                        'error'        => $fileError,
-                    );
+                    $this->FILES[$key] = ['name'        => $fileName, 'tmp_name'    => $tmpFileName, 'type'        => $contentType, 'size'        => strlen($value), 'error'        => $fileError];
                 }
             }
             else
@@ -1597,7 +1572,7 @@ class HttpRequest
                 if (preg_match('/^(.*)\[(.*)\]$/', $key, $matches))
                 {
                     if (!isset($this->POST[$matches[1]]))
-                        $this->POST[$matches[1]] = array();
+                        $this->POST[$matches[1]] = [];
 
                     if ($matches[2] == '')
                         $this->POST[$matches[1]][] = $value;
@@ -1631,38 +1606,12 @@ class HttpRequest
 
 class HttpResponse
 {
-    static $responseCodes    = array
-        (
-            200 => 'OK',
-            204 => 'No Content',
-            206 => 'Partial Content',
-            301 => 'Moved Permanently',
-            302 => 'Found',
-            304 => 'Not Modified',
-            307 => 'Temporary Redirect',
-            400 => 'Bad Request',
-            401 => 'Unauthorized',
-            403 => 'Forbidden',
-            404 => 'File Not Found',
-            405 => 'Method Not Allowed',
-            408 => 'Request Timeout',
-            411 => 'Length Required',
-            413 => 'Request Entity Too Large',
-            414 => 'Request-URI Too Long',
-            415 => 'Unsupported Media Type',
-            416 => 'Requested Range Not Satisfiable',
-            444 => 'Garbage Request Rejected',
-        );
+    static $responseCodes    = [200 => 'OK', 204 => 'No Content', 206 => 'Partial Content', 301 => 'Moved Permanently', 302 => 'Found', 304 => 'Not Modified', 307 => 'Temporary Redirect', 400 => 'Bad Request', 401 => 'Unauthorized', 403 => 'Forbidden', 404 => 'File Not Found', 405 => 'Method Not Allowed', 408 => 'Request Timeout', 411 => 'Length Required', 413 => 'Request Entity Too Large', 414 => 'Request-URI Too Long', 415 => 'Unsupported Media Type', 416 => 'Requested Range Not Satisfiable', 444 => 'Garbage Request Rejected'];
 
     private $responseCode    = 200;
     private $httpVersion    = '1.1';
-    private $headers        = array
-        (
-            'Server'        => '',
-            'Date'            => '',
-            'Content-Type'    => 'text/html',
-        );
-    private $cookies        = array();
+    private $headers        = ['Server'        => '', 'Date'            => '', 'Content-Type'    => 'text/html'];
+    private $cookies        = [];
     private $body            = '';
     private $bodyLen        = 0;
 
@@ -1772,7 +1721,7 @@ class HttpResponse
         if ($path[0] != '/')
             $path = '/'.$path;
 
-        $this->cookies[$name] = array($value, $expire, $path, $domain, $secure, $httponly);
+        $this->cookies[$name] = [$value, $expire, $path, $domain, $secure, $httponly];
     }
 }
 

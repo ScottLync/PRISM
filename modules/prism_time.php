@@ -68,7 +68,7 @@ class Time
         # Seconds are the base unit, so it's handled intrinsically
 
         // Translate the unit counts into verbose text
-        $timeElement = array();
+        $timeElement = [];
 
         if ($weeks > 0)
             $timeElement[] = sprintf("%i %s", $weeks, ($weeks == 1) ? "week" : "weeks");

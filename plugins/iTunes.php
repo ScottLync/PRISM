@@ -9,7 +9,7 @@ class iTunes extends Plugins
 
 	private $isShowing = FALSE;
 	private $isPlaying = FALSE;
-	private $buttons = array();
+	private $buttons = [];
 
 	public function __construct()
 	{

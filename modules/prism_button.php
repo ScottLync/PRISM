@@ -38,7 +38,7 @@ class Button extends IS_BTN
 
     public function registerOnClick(Plugins $plugin, $methodName, $params = NULL)
     {
-        $this->onClick = array($plugin, $methodName);
+        $this->onClick = [$plugin, $methodName];
         if($params !== null) {
             $this->onClick[] = $params;
         }
@@ -52,7 +52,7 @@ class Button extends IS_BTN
         switch (count($this->onClick))
         {
             case 3:
-                call_user_func_array(array($this->onClick[0], $this->onClick[1]), $this->onClick[2]);
+                call_user_func_array([$this->onClick[0], $this->onClick[1]], $this->onClick[2]);
             break;
             case 2:
             default:
@@ -68,7 +68,7 @@ class Button extends IS_BTN
         else {
             $this->TypeIn = $maxLength;
         }
-        $this->onText = array($plugin, $methodName);
+        $this->onText = [$plugin, $methodName];
         $this->BStyle |= ISB_CLICK;
     }
     public function enterText(IS_BTT $BTT)

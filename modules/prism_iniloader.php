@@ -102,7 +102,7 @@ abstract class IniLoader
         $foundSection = false;
         foreach ($lines as $num => &$line)
         {
-            $matches = array();
+            $matches = [];
             if (preg_match('/^\s*\[(.+)\]\s*$/', $line, $matches))
             {
                 if ($matches[1] == $section)
@@ -114,7 +114,7 @@ abstract class IniLoader
                     {
                         // Create a new line and insert it.
                         $insert = $key.' = '.$newValue.PHP_EOL.PHP_EOL;
-                        array_splice($lines, $num, 0, array($insert));
+                        array_splice($lines, $num, 0, [$insert]);
                         if (!file_put_contents(ROOTPATH.'/configs/'.$this->iniFile, implode(PHP_EOL, $lines).PHP_EOL))
                             return false;
                         return true;
@@ -152,7 +152,7 @@ abstract class IniLoader
         if (!file_exists(ROOTPATH.'/configs/'.$this->iniFile))
         {
             // Just create a new file for the new section then...
-            $this->createIniFile($this->iniFile, 'Configuration File', array($section => $values));
+            $this->createIniFile($this->iniFile, 'Configuration File', [$section => $values]);
             return true;
         }
 
@@ -179,11 +179,11 @@ abstract class IniLoader
         $lines = file(ROOTPATH.'/configs/'.$this->iniFile, FILE_IGNORE_NEW_LINES);
 
         // Loop through the lines to detect Section and then Key
-        $newLines = array();
+        $newLines = [];
         $foundSection = false;
         foreach ($lines as $num => &$line)
         {
-            $matches = array();
+            $matches = [];
             if (preg_match('/^\s*\[(.+)\]\s*$/', $line, $matches))
             {
                 if ($matches[1] == $section)

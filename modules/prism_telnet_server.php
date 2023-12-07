@@ -17,7 +17,7 @@ class TelnetServer extends TelnetScreen
     private $ip                = '';
     private $port            = 0;
 
-    private $lineBuffer        = array();
+    private $lineBuffer        = [];
     private $lineBufferPtr    = 0;
     private $inputBuffer    = '';
     private $inputBufferLen    = 0;
@@ -36,7 +36,7 @@ class TelnetServer extends TelnetScreen
     private $echoChar        = null;
     private $inputCallback    = null;
 
-    private $charMap        = array();
+    private $charMap        = [];
 
     public function __construct(&$sock, &$ip, &$port)
     {
@@ -118,7 +118,7 @@ class TelnetServer extends TelnetScreen
         }
         else
         {
-            $this->inputCallback = array($class, $func);
+            $this->inputCallback = [$class, $func];
 //            console('SETTING CALLBACK FUNCTION : '.$func);
         }
 
@@ -534,7 +534,7 @@ class TelnetServer extends TelnetScreen
                             }
 
                             $input = substr($this->inputBuffer, $a);
-                            $matches = array();
+                            $matches = [];
                             if (preg_match('/^('.KEY_ESCAPE.'\[(\d?)D).*$/', $input, $matches))
                             {
                                 // CURSOR LEFT
@@ -704,7 +704,7 @@ class TelnetServer extends TelnetScreen
                                 break;
 
                             $input = substr($this->inputBuffer, $a);
-                            $matches = array();
+                            $matches = [];
 
                             // Arrow keys
                             if (preg_match('/^('.KEY_ESCAPE.'\[(\d?)D).*$/', $input, $matches))
@@ -888,7 +888,7 @@ class TelnetServer extends TelnetScreen
             // Splice line out of line buffer
             array_splice($this->lineBuffer, 0, $a+1);
 
-            $this->lineBuffer = array();
+            $this->lineBuffer = [];
             $this->lineBufferPtr = 0;
             return $line;
         }
@@ -921,7 +921,7 @@ class TelnetServer extends TelnetScreen
 
     public function setLineBuffer($chars)
     {
-        $this->lineBuffer = array();
+        $this->lineBuffer = [];
         $this->lineBufferPtr = 0;
         for ($a=0; $a<strlen($chars); $a++)
             $this->lineBuffer[$this->lineBufferPtr++] = $chars[$a];
@@ -949,7 +949,7 @@ class TelnetServer extends TelnetScreen
         else if ($this->modeState & TELNET_MODE_INSERT)
         {
             for ($a=0; $a<strlen($char); $a++)
-                array_splice($this->lineBuffer, $this->lineBufferPtr++, 0, array($char[$a]));
+                array_splice($this->lineBuffer, $this->lineBufferPtr++, 0, [$char[$a]]);
         }
         else
         {
@@ -1013,7 +1013,7 @@ class TelnetServer extends TelnetScreen
             return false;
 
         $a = 0;
-        $this->charMap = array();
+        $this->charMap = [];
         while ($a<$len)
         {
             $func        = $mapData[$a++];
@@ -1021,7 +1021,7 @@ class TelnetServer extends TelnetScreen
             $ascii        = $mapData[$a++];
 
             //console(printf());
-            $this->charMap[$func] = array($ascii, $options);
+            $this->charMap[$func] = [$ascii, $options];
         }
 
         return true;

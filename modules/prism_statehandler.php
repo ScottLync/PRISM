@@ -11,13 +11,15 @@
 class StateHandler extends PropertyMaster
 {
     // Intrinsic Handles
-    protected $handles = array
-    (
+    protected $handles = [
         # State handles
-        ISP_ISI => 'onInSimInit',            # To Do. (1)
+        ISP_ISI => 'onInSimInit',
+        # To Do. (1)
         ISP_VER => 'onVersion',
-        ISP_TINY => 'onTiny',                # To Do. (3)
-        ISP_SMALL => 'onSmall',                # To Do. (4)
+        ISP_TINY => 'onTiny',
+        # To Do. (3)
+        ISP_SMALL => 'onSmall',
+        # To Do. (4)
         ISP_STA => 'onStateChange',
         ISP_CPP => 'onCameraPosisionChange',
         ISP_ISM => 'onMultiPlayerStart',
@@ -39,15 +41,12 @@ class StateHandler extends PropertyMaster
         ISP_FIN => 'onPlayerPacket',
         ISP_RES => 'onPlayerPacket',
         # Client & Player handles
-        ISP_TOC => array(
-                    'onClientPacket',
-                    'onPlayerPacket'
-                ),
+        ISP_TOC => ['onClientPacket', 'onPlayerPacket'],
         # Buttons handles
         ISP_BFN => 'onButtonFunction',
         ISP_BTC => 'onButtonClick',
-        ISP_BTT => 'onButtonText'
-    );
+        ISP_BTT => 'onButtonText',
+    ];
     
     public function dispatchPacket(Struct $Packet)
     {
@@ -135,8 +134,8 @@ class StateHandler extends PropertyMaster
 
 
     // Extrinsic Properties
-    public $clients = array();
-    public $players = array();        # By design there is one here and a refrence to this in the $this->clients[UCID]->players[PLID] array.
+    public $clients = [];
+    public $players = [];        # By design there is one here and a refrence to this in the $this->clients[UCID]->players[PLID] array.
 
     // Constructor
     public function __construct()
@@ -375,15 +374,18 @@ class StateHandler extends PropertyMaster
 
 class ClientHandler extends PropertyMaster
 {
-    public static $handles = array
-    (
-        ISP_NCN => '__construct',    # 18
-        ISP_CNL => '__destruct',    # 19
-        ISP_CPR => 'onRename',        # 20
-        ISP_TOC => 'onTakeOverCar',    # 31
-        ISP_NCI => 'onClientInfo'    # 57
-    );
-    public $players = array();
+    public static $handles = [
+        ISP_NCN => '__construct',
+        # 18
+        ISP_CNL => '__destruct',
+        # 19
+        ISP_CPR => 'onRename',
+        # 20
+        ISP_TOC => 'onTakeOverCar',
+        # 31
+        ISP_NCI => 'onClientInfo',
+    ];
+    public $players = [];
 
     public function dispatchPacket(Struct $Packet)
     {
@@ -466,14 +468,19 @@ class ClientHandler extends PropertyMaster
 
 class PlayerHandler extends PropertyMaster
 {
-    public static $handles = array(
-        ISP_NPL => '__construct',    # 21
-        ISP_PLL => '__destruct',    # 23
-        ISP_PLP => 'onPits',        # 22
-        ISP_FIN => 'onFinished',    # 34
-        ISP_RES => 'onResult',        # 35
-        ISP_TOC => 'onTakeOverCar',    # 31
-    );
+    public static $handles = [
+        ISP_NPL => '__construct',
+        # 21
+        ISP_PLL => '__destruct',
+        # 23
+        ISP_PLP => 'onPits',
+        # 22
+        ISP_FIN => 'onFinished',
+        # 34
+        ISP_RES => 'onResult',
+        # 35
+        ISP_TOC => 'onTakeOverCar',
+    ];
 
     // Basicly the IS_NPL Struct.
     protected $UName;           # UserName
@@ -550,7 +557,7 @@ class PlayerHandler extends PropertyMaster
         $this->finished = TRUE;
     }
 
-    protected $result = array();
+    protected $result = [];
     public function onResult(IS_RES $RES)
     {
         $this->result[] = $RES;

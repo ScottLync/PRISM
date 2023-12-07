@@ -15,7 +15,7 @@ class cron
 
     protected
         $time = 0,
-        $jobs = array();
+        $jobs = [];
 
     public function __construct()
     {
@@ -88,10 +88,7 @@ class cron
             if ($seconds == '' || $minutes == '' || $hours == '' || $mday == '' || $month == '' || $day == '' || $command == '')
                 continue;
 
-            $this->jobs[] = array (
-                'regex'    => $this->format($seconds, 59) . $this->format($minutes, 59) . $this->format($hours, 23) . $this->format($mday, 31) . $this->format($month, 12) . $this->format($day, 6, 1),
-                'cmd'    => $command
-            );
+            $this->jobs[] = ['regex'    => $this->format($seconds, 59) . $this->format($minutes, 59) . $this->format($hours, 23) . $this->format($mday, 31) . $this->format($month, 12) . $this->format($day, 6, 1), 'cmd'    => $command];
         }
     }
 

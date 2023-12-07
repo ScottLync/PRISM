@@ -56,7 +56,7 @@ define('ADMIN_ROOT', ADMIN_ALL); # Root level access. (Full Access)
 */
 class AdminHandler extends SectionHandler
 {
-    private $admins        = array();
+    private $admins        = [];
 
     public function __construct()
     {
@@ -67,7 +67,7 @@ class AdminHandler extends SectionHandler
     {
         global $PRISM;
 
-        $this->admins = array();
+        $this->admins = [];
 
         if ($this->loadIniFile($this->admins)) {
             if ($PRISM->config->cvars['debugMode'] & PRISM_DEBUG_CORE) {
@@ -151,7 +151,7 @@ ININOTES;
         }
 
         # Crazy stuff we have to do to make sure that usernames are lowercase.
-        $tempAdmins = array();
+        $tempAdmins = [];
 
         foreach ($this->admins as $username => &$details) {
             $tempAdmins[strToLower($username)] = $details;
@@ -164,14 +164,10 @@ ININOTES;
 
     public function &getAdminsInfo()
     {
-        $info = array();
+        $info = [];
 
         foreach ($this->admins as $user => $details) {
-            $info[$user] = array(
-                'accessFlags' => $details['accessFlags'],
-                'connection' => $details['connection'],
-                'temporary' => isset($details['temporary']) ? $details['temporary'] : false,
-            );
+            $info[$user] = ['accessFlags' => $details['accessFlags'], 'connection' => $details['connection'], 'temporary' => isset($details['temporary']) ? $details['temporary'] : false];
         }
 
         return $info;
@@ -185,11 +181,7 @@ ININOTES;
             return false;
         }
 
-        return array(
-            'accessFlags' => $this->admins[$username]['accessFlags'],
-            'connection' => $this->admins[$username]['connection'],
-            'temporary' => isset($this->admins[$username]['temporary']) ? $this->admins[$username]['temporary'] : false,
-        );
+        return ['accessFlags' => $this->admins[$username]['accessFlags'], 'connection' => $this->admins[$username]['connection'], 'temporary' => isset($this->admins[$username]['temporary']) ? $this->admins[$username]['temporary'] : false];
     }
 
     public function getRealmDigest(&$username)
@@ -231,12 +223,7 @@ ININOTES;
         }
 
         // Add new user to $this->admins
-        $this->admins[$username] = array(
-            'password'        => sha1($password.$PRISM->config->cvars['secToken']),
-            'connection'    => $connection,
-            'accessFlags'    => $accessFlags,
-            'realmDigest'    => md5($username.':'.HTTP_AUTH_REALM.':'.$password),
-        );
+        $this->admins[$username] = ['password'        => sha1($password.$PRISM->config->cvars['secToken']), 'connection'    => $connection, 'accessFlags'    => $accessFlags, 'realmDigest'    => md5($username.':'.HTTP_AUTH_REALM.':'.$password)];
 
         // Add new user section to admin.ini
         if ($store)    {

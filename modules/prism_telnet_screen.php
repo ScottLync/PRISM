@@ -92,7 +92,7 @@ abstract class ScreenObject
 
     public function getLocation()
     {
-        return array($this->x, $this->y);
+        return [$this->x, $this->y];
     }
 
     public function getX()
@@ -141,7 +141,7 @@ abstract class ScreenObject
 
     public function getSize()
     {
-        return array($this->cols, $this->lines);
+        return [$this->cols, $this->lines];
     }
 
     public function getWidth()
@@ -337,7 +337,7 @@ abstract class ScreenObject
 */
 abstract class ScreenContainer extends ScreenObject
 {
-    protected $screenObjects        = array();
+    protected $screenObjects        = [];
 
     public function add(ScreenObject $object)
     {
@@ -358,7 +358,7 @@ abstract class ScreenContainer extends ScreenObject
 
     public function removeAll()
     {
-        $this->screenObjects = array();
+        $this->screenObjects = [];
     }
 
     public function removeById($objectId)
@@ -468,7 +468,7 @@ abstract class TelnetScreen extends ScreenContainer
     protected function setWinSize($width, $height)
     {
         $firstTime = ($this->winSize === null) ? true : false;
-        $this->winSize = array($width, $height);
+        $this->winSize = [$width, $height];
         $this->setSize($width, $height);
         if (!$firstTime)
             $this->redraw();
@@ -535,7 +535,7 @@ abstract class TelnetScreen extends ScreenContainer
 
     protected function clearObjects($clearScreen = false)
     {
-        $this->screenObjects = array();
+        $this->screenObjects = [];
         if ($clearScreen)
             $this->screenClear(true);
     }
@@ -698,11 +698,11 @@ class TSTextArea extends ScreenObject
     private function prepareTags()
     {
         $words = explode(' ', $this->text);
-        $out = array();
+        $out = [];
 
         foreach ($words as $word)
         {
-            $matches = array();
+            $matches = [];
             if (preg_match_all('/'.KEY_ESCAPE.'\[(\d*)m/', $word, $matches, PREG_OFFSET_CAPTURE))
             {
                 $cutOffset = 0;
@@ -719,19 +719,19 @@ class TSTextArea extends ScreenObject
                         foreach ($exp as $i => $e)
                         {
                             if ($i > 0)
-                                $out[] = array(KEY_ENTER, 0);
-                            $out[] = array($e, 0);
+                                $out[] = [KEY_ENTER, 0];
+                            $out[] = [$e, 0];
                         }
 
                         // Then the tag
-                        $out[] = array($match[0], 1);
+                        $out[] = [$match[0], 1];
 
                         $word = substr($word, $match[1] + $mLen);
                         $cutOffset += $match[1] + $mLen;
                     }
                     else
                     {
-                        $out[] = array($match[0], 1);
+                        $out[] = [$match[0], 1];
                         $word = substr($word, $mLen);
                         $cutOffset += $mLen;
                     }
@@ -743,8 +743,8 @@ class TSTextArea extends ScreenObject
                     foreach ($exp as $i => $e)
                     {
                         if ($i > 0)
-                            $out[] = array(KEY_ENTER, 0);
-                        $out[] = array($e, 0);
+                            $out[] = [KEY_ENTER, 0];
+                        $out[] = [$e, 0];
                     }
                 }
             }
@@ -755,13 +755,13 @@ class TSTextArea extends ScreenObject
                 foreach ($exp as $i => $e)
                 {
                     if ($i > 0)
-                        $out[] = array(KEY_ENTER, 0);
-                    $out[] = array($e, 0);
+                        $out[] = [KEY_ENTER, 0];
+                    $out[] = [$e, 0];
                 }
             }
 
             // Add the space between words to $out (it was stripped in the explode())
-            $out[] = array(' ', 0);
+            $out[] = [' ', 0];
         }
         array_pop($out);
 
@@ -863,14 +863,14 @@ abstract class TSSection extends ScreenContainer
         }
     }
 
-    protected function setInputCallback($class, $func = null, $editMode = 0, array $curPos = array(0, 0), $defaultText = '', $maxLength = 23)
+    protected function setInputCallback($class, $func = null, $editMode = 0, array $curPos = [0, 0], $defaultText = '', $maxLength = 23)
     {
         if (get_class($this->parentSection) == 'PrismTelnet')
         {
             if ($class === null)
             {
                 $this->parentSection->registerInputCallback($this->parentSection, 'handleKey');
-                $this->parentSection->setPostCurPos(array());
+                $this->parentSection->setPostCurPos([]);
             }
             else
             {
@@ -880,7 +880,7 @@ abstract class TSSection extends ScreenContainer
                 if ($editMode)
                     $this->parentSection->setPostCurPos($curPos);
                 else
-                    $this->parentSection->setPostCurPos(array());
+                    $this->parentSection->setPostCurPos([]);
             }
 //            console('Recursive : found final parent');
         }

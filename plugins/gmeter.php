@@ -8,9 +8,9 @@ class gmeter extends Plugins {
 
 	const GRAVITY = 9.80665;
 
-	private $BTNs = array();
-	private $TIMEs = array();
-	private $SPEEDs = array();
+	private $BTNs = [];
+	private $TIMEs = [];
+	private $SPEEDs = [];
 
 	public function __construct() {
 		$this->registerPacket('onMCI', ISP_MCI);

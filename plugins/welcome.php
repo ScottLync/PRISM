@@ -7,7 +7,7 @@ class welcome extends Plugins
 	const VERSION = PHPInSimMod::VERSION;
 	const DESCRIPTION = 'Welcome messages for clients, and Message of the Day (MOTD)';
 
-    protected $BTNMan = array();
+    protected $BTNMan = [];
 
 	public function __construct()
 	{
@@ -26,10 +26,10 @@ class welcome extends Plugins
 			return;
 
 		$this->BTNMan[$NCN->UName] = new betterButtonManager($NCN->UCID);
-        $this->createNamedTimer("WelcomePlugin_ButtonHandle_{$NCN->UName}", 'DoButtonHandle', 0.50, Timer::REPEAT, array($NCN->UName));
+        $this->createNamedTimer("WelcomePlugin_ButtonHandle_{$NCN->UName}", 'DoButtonHandle', 0.50, Timer::REPEAT, [$NCN->UName]);
 
         $this->BTNMan[$NCN->UName]->InitButton('poweredBy', 'welcomeMSG', (IS_Y_MAX - IS_Y_MIN), IS_X_MIN, IS_X_MAX, 8, ISB_DARK, 'This server is powered by', 10);
-        $this->BTNMan[$NCN->UName]->AddClickEventToBtn('poweredBy', $this, 'onPoweredByClick', array($NCN->UCID));
+        $this->BTNMan[$NCN->UName]->AddClickEventToBtn('poweredBy', $this, 'onPoweredByClick', [$NCN->UCID]);
         $this->BTNMan[$NCN->UName]->InitButton('prism', 'welcomeMSG', (IS_Y_MAX - IS_Y_MIN + 8), IS_X_MIN, IS_X_MAX, 8, ISB_DARK, '^3PRISM ^8Version ^7'.PHPInSimMod::VERSION.'^8.', 10);
 
 	}

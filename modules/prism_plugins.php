@@ -12,8 +12,8 @@ define('PRINT_CONTEXT',        PRINT_NUM);        # 3
 
 class PluginHandler extends SectionHandler
 {
-    private $plugins            = array();            # Stores references to the plugins we've spawned.
-    private $pluginvars            = array();
+    private $plugins            = [];            # Stores references to the plugins we've spawned.
+    private $pluginvars            = [];
 
     public function __construct()
     {
@@ -24,7 +24,7 @@ class PluginHandler extends SectionHandler
     {
         global $PRISM;
 
-        $this->pluginvars = array();
+        $this->pluginvars = [];
 
         if ($this->loadIniFile($this->pluginvars)) {
             foreach ($this->pluginvars as $pluginID => $v) {
@@ -172,13 +172,12 @@ abstract class Plugins extends Translations
     /* const VERSION;        */
 
     /** Properties */
-    public $callbacks = array(
-    );
+    public $callbacks = [];
     // Callbacks
-    public $consoleCommands = array();
-    public $insimCommands = array();
-    public $localCommands = array();
-    public $sayCommands = array();
+    public $consoleCommands = [];
+    public $insimCommands = [];
+    public $localCommands = [];
+    public $sayCommands = [];
     /** Internal Methods */
     private function getCallback($cmdsArray, $cmdString)
     {
@@ -307,7 +306,7 @@ abstract class Plugins extends Translations
             $this->registerPacket('handleInsimCmd', 'STDIN');
         }
 
-        $this->consoleCommands[$cmd] = array('method' => $callbackMethod, 'info' => $info);
+        $this->consoleCommands[$cmd] = ['method' => $callbackMethod, 'info' => $info];
     }
 
     // Any command that comes from the "/i" type. (III)
@@ -318,7 +317,7 @@ abstract class Plugins extends Translations
             $this->registerPacket('handleInsimCmd', ISP_III);
         }
 
-        $this->insimCommands[$cmd] = array('method' => $callbackMethod, 'info' => $info, 'accessLevel' => $defaultAdminLevelToAccess);
+        $this->insimCommands[$cmd] = ['method' => $callbackMethod, 'info' => $info, 'accessLevel' => $defaultAdminLevelToAccess];
     }
 
     // Any command that comes from the "/o" type. (MSO->Flags = MSO_O)
@@ -329,7 +328,7 @@ abstract class Plugins extends Translations
             $this->registerPacket('handleCmd', ISP_MSO);
         }
 
-        $this->localCommands[$cmd] = array('method' => $callbackMethod, 'info' => $info, 'accessLevel' => $defaultAdminLevelToAccess);
+        $this->localCommands[$cmd] = ['method' => $callbackMethod, 'info' => $info, 'accessLevel' => $defaultAdminLevelToAccess];
     }
 
     // Any say event with prefix charater (ISI->Prefix) with this command type. (MSO->Flags = MSO_PREFIX)
@@ -340,7 +339,7 @@ abstract class Plugins extends Translations
             $this->registerPacket('handleCmd', ISP_MSO);
         }
 
-        $this->sayCommands[$cmd] = array('method' => $callbackMethod, 'info' => $info, 'accessLevel' => $defaultAdminLevelToAccess);
+        $this->sayCommands[$cmd] = ['method' => $callbackMethod, 'info' => $info, 'accessLevel' => $defaultAdminLevelToAccess];
     }
 
     /** Internal Functions */

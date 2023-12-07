@@ -17,20 +17,20 @@ class Interactive
         while (true)
         {
             echo PHP_EOL;
-            $tmp = array();
+            $tmp = [];
 
             // Ask if we want to add a direct host or a relay host
-            $tmp['useRelay'] = (self::query('Do you want to connect to a host directly or through the relay?', array('direct', 'relay')) == 'relay') ? 1 : 0;
+            $tmp['useRelay'] = (self::query('Do you want to connect to a host directly or through the relay?', ['direct', 'relay']) == 'relay') ? 1 : 0;
 
             if ($tmp['useRelay'])
             {
                 // Relay host connection details
                 $tmp['hostname']        = self::query('What is the name of the host (case-sensitive)?');
-                $tmp['adminPass']        = self::query('Optional administrator password (or blank)', array(), TRUE);
+                $tmp['adminPass']        = self::query('Optional administrator password (or blank)', [], TRUE);
                 $tmp['specPass']        = '';
 
                 if (!$tmp['adminPass'])
-                    $tmp['specPass']    = self::query('Optional spectator pass then? (or blank)', array(), TRUE);
+                    $tmp['specPass']    = self::query('Optional spectator pass then? (or blank)', [], TRUE);
             }
             else
             {
@@ -47,8 +47,8 @@ class Interactive
                     $tmp['port']        = (int) self::query('What is the InSim port number of the host?');
                 } while ($tmp['port'] < 1 || $tmp['port'] > 65535);
 
-                $tmp['socketType']        = (self::query('Do you want to connect to the host via TCP or UDP?', array('tcp', 'udp')) == 'udp') ? 2 : 1;
-                $tmp['password']        = self::query('What is the administrator password of the host?', array(), TRUE);
+                $tmp['socketType']        = (self::query('Do you want to connect to the host via TCP or UDP?', ['tcp', 'udp']) == 'udp') ? 2 : 1;
+                $tmp['password']        = self::query('What is the administrator password of the host?', [], TRUE);
                 $tmp['pps']            = 4;
                 //$tmp['pps']            = self::query('How many position packets per second do you want to receive?');
 
@@ -56,21 +56,21 @@ class Interactive
             }
 
             $tmp['flags']            = 0;
-            $tmp['flags']            += (self::query('Are you connecting to dedicated or listen server?', array('dedi', 'listen')) == 'dedi') ? 0 : ISF_LOCAL;
-            $tmp['flags']            += (self::query('Keep colours in MSO text?', array('yes', 'no')) == 'yes') ? ISF_MSO_COLS : 0;
-            $tmp['flags']            += (self::query('Receive Node Lap Player (Less Detailed then MCI) packets?', array('yes', 'no')) == 'yes') ? ISF_NLP : 0;
-            $tmp['flags']            += (self::query('Receive Muli Car Info (Most detailed real time packet) packets?', array('yes', 'no')) == 'yes') ? ISF_MCI : 0;
-            $tmp['flags']            += (self::query('Receive Contact packets?', array('yes', 'no')) == 'yes') ? ISF_CON : 0;
-            $tmp['flags']            += (self::query('Receive Object Hit packets?', array('yes', 'no')) == 'yes') ? ISF_OBH : 0;
-            $tmp['flags']            += (self::query('Receive Hot Lap Verification packets?', array('yes', 'no')) == 'yes') ? ISF_HLV : 0;
-            $tmp['flags']            += (self::query('Receive Auto X packet when loading and unloading track layouts?', array('yes', 'no')) == 'yes') ? ISF_AXM_LOAD : 0;
-            $tmp['flags']            += (self::query('Receive Auto X packet when editing track layouts?', array('yes', 'no')) == 'yes') ? ISF_AXM_EDIT : 0;
-            $tmp['flags']            += (self::query('Receive Join Requests?', array('yes', 'no')) == 'yes') ? ISF_REQ_JOIN : 0;
+            $tmp['flags']            += (self::query('Are you connecting to dedicated or listen server?', ['dedi', 'listen']) == 'dedi') ? 0 : ISF_LOCAL;
+            $tmp['flags']            += (self::query('Keep colours in MSO text?', ['yes', 'no']) == 'yes') ? ISF_MSO_COLS : 0;
+            $tmp['flags']            += (self::query('Receive Node Lap Player (Less Detailed then MCI) packets?', ['yes', 'no']) == 'yes') ? ISF_NLP : 0;
+            $tmp['flags']            += (self::query('Receive Muli Car Info (Most detailed real time packet) packets?', ['yes', 'no']) == 'yes') ? ISF_MCI : 0;
+            $tmp['flags']            += (self::query('Receive Contact packets?', ['yes', 'no']) == 'yes') ? ISF_CON : 0;
+            $tmp['flags']            += (self::query('Receive Object Hit packets?', ['yes', 'no']) == 'yes') ? ISF_OBH : 0;
+            $tmp['flags']            += (self::query('Receive Hot Lap Verification packets?', ['yes', 'no']) == 'yes') ? ISF_HLV : 0;
+            $tmp['flags']            += (self::query('Receive Auto X packet when loading and unloading track layouts?', ['yes', 'no']) == 'yes') ? ISF_AXM_LOAD : 0;
+            $tmp['flags']            += (self::query('Receive Auto X packet when editing track layouts?', ['yes', 'no']) == 'yes') ? ISF_AXM_EDIT : 0;
+            $tmp['flags']            += (self::query('Receive Join Requests?', ['yes', 'no']) == 'yes') ? ISF_REQ_JOIN : 0;
 
             // Ask for the alias (hostID) for this connection
             while (true)
             {
-                $hostID = self::query('What would you like this connection to be known as?', array(), TRUE);
+                $hostID = self::query('What would you like this connection to be known as?', [], TRUE);
                 if (isset($vars[$hostID]))
                     echo 'There already is a connection by that name. Please enter another one.'.PHP_EOL;
                 else if (!preg_match('/^[a-zA-Z0-9]+$/', $hostID))
@@ -86,7 +86,7 @@ class Interactive
                 $vars[$hostID] = $tmp;
             unset($hostID);
 
-            if (self::query(PHP_EOL.'Would you like to add another host?', array('yes', 'no')) == 'no')
+            if (self::query(PHP_EOL.'Would you like to add another host?', ['yes', 'no']) == 'no')
                 break;
         }
         echo PHP_EOL;
@@ -102,7 +102,7 @@ class Interactive
         }
 
         // read plugins dir
-        $plugins = array();
+        $plugins = [];
         foreach (new DirectoryIterator(ROOTPATH.'/plugins') as $fileInfo) {
             if ($fileInfo->getType() != 'file' || !preg_match('/^.*\.php$/', $fileInfo->getFilename()))
                 continue;
@@ -125,12 +125,12 @@ class Interactive
             echo PHP_EOL;
 
             // Ask if user wants this plugin
-            if (self::query('Do you want to use the plugin "'.$plugin.'"?', array('yes', 'no')) == 'no')
+            if (self::query('Do you want to use the plugin "'.$plugin.'"?', ['yes', 'no']) == 'no')
                 continue;
 
             // Print a list of available hosts
             $c = 1;
-            $hostIDCache = array();
+            $hostIDCache = [];
             echo 'ID | Host details'.PHP_EOL;
             echo '---+----------------'.PHP_EOL;
             foreach ($hostvars as $index => $values)
@@ -151,12 +151,12 @@ class Interactive
                 $hostIDs = '';
                 if ($c == 2)
                 {
-                    $ids = self::query(PHP_EOL.'Enter the ID number of the host you want to tie to this plugin. Or type * for all hosts.', array(), TRUE);
+                    $ids = self::query(PHP_EOL.'Enter the ID number of the host you want to tie to this plugin. Or type * for all hosts.', [], TRUE);
                 }
                 else
                 {
                     echo PHP_EOL.'Enter the ID numbers of the hosts you want to tie to this plugin. Or type * for all hosts.'.PHP_EOL;
-                    $ids = self::query('Separate each ID number by a space', array(), TRUE);
+                    $ids = self::query('Separate each ID number by a space', [], TRUE);
                 }
 
                 // Validate user input
@@ -169,7 +169,7 @@ class Interactive
                 {
                     $exp = explode(' ', $ids);
                     $invalidIDs = '';
-                    $IDCache = array();
+                    $IDCache = [];
                     foreach ($exp as $e)
                     {
                         if ($e == '')
@@ -196,7 +196,7 @@ class Interactive
             }
 
             // Store this plugin's settings in target var
-            $vars[$plugin] = array('useHosts' => substr($hostIDs, 1, -1));
+            $vars[$plugin] = ['useHosts' => substr($hostIDs, 1, -1)];
         }
 
         echo PHP_EOL;
@@ -209,7 +209,7 @@ class Interactive
         echo 'Afterwards your http settings will be stored in ./config/http.ini for future use.'.PHP_EOL;
 
         // Ask if we want to use a http socket at all
-        if (self::query(PHP_EOL.'Would you like to setup the web server?', array('yes', 'no')) == 'no')
+        if (self::query(PHP_EOL.'Would you like to setup the web server?', ['yes', 'no']) == 'no')
         {
             $vars['ip'] = '';
             $vars['port'] = '0';
@@ -219,7 +219,7 @@ class Interactive
         // Ask which IP address to bind the listen socket to
         while (true)
         {
-            $vars['ip']        = self::query('On which IP address should we listen? (blank means all)', array(), true);
+            $vars['ip']        = self::query('On which IP address should we listen? (blank means all)', [], true);
             if ($vars['ip'] == '')
                 $vars['ip'] = '0.0.0.0';
 
@@ -232,7 +232,7 @@ class Interactive
         // Ask which Port to listen on
         while (true)
         {
-            $vars['port']        = (int) self::query('On which Port should we listen? (blank means Port 80)', array(), true);
+            $vars['port']        = (int) self::query('On which Port should we listen? (blank means Port 80)', [], true);
             if ($vars['port'] == '')
                 $vars['port'] = '80';
 
@@ -243,7 +243,7 @@ class Interactive
         }
 
         // Ask if we want to turn on httpAuth
-        if (self::query('Do you want to restrict access to the admin website with a http login query?', array('yes', 'no')) == 'yes')
+        if (self::query('Do you want to restrict access to the admin website with a http login query?', ['yes', 'no']) == 'yes')
         {
             $vars['httpAuthPath'] = '/';
         }
@@ -257,7 +257,7 @@ class Interactive
         echo 'Afterwards your telnet settings will be stored in ./config/telnet.ini for future use.'.PHP_EOL;
 
         // Ask if we want to use a telnet socket at all
-        if (self::query(PHP_EOL.'Would you like to setup the telnet server?', array('yes', 'no')) == 'no')
+        if (self::query(PHP_EOL.'Would you like to setup the telnet server?', ['yes', 'no']) == 'no')
         {
             $vars['ip'] = '';
             $vars['port'] = '0';
@@ -267,7 +267,7 @@ class Interactive
         // Ask which IP address to bind the listen socket to
         while (true)
         {
-            $vars['ip']        = self::query('On which IP address should we listen? (blank means all)', array(), true);
+            $vars['ip']        = self::query('On which IP address should we listen? (blank means all)', [], true);
             if ($vars['ip'] == '')
                 $vars['ip'] = '0.0.0.0';
 
@@ -280,7 +280,7 @@ class Interactive
         // Ask which Port to listen on
         while (true)
         {
-            $vars['port']    = (int) self::query('On which Port should we listen? (blank means Port 23', array(), true);
+            $vars['port']    = (int) self::query('On which Port should we listen? (blank means Port 23', [], true);
             if ($vars['port'] == '')
                 $vars['port'] = '23';
 
@@ -305,7 +305,7 @@ class Interactive
         do
         {
             echo PHP_EOL;
-            $tmp = array();
+            $tmp = [];
 
             $tmp['username']            = self::query('Give the (LFS) username for the account');
             do
@@ -324,7 +324,7 @@ class Interactive
 
             // Print a list of available hosts
             $c = 1;
-            $hostIDCache = array();
+            $hostIDCache = [];
             echo 'ID | Host details'.PHP_EOL;
             echo '---+----------------'.PHP_EOL;
             foreach ($hostVars as $index => $values)
@@ -345,12 +345,12 @@ class Interactive
                 $hostIDs = '';
                 if ($c == 2)
                 {
-                    $ids = self::query(PHP_EOL.'Enter the ID number of the host you want to tie to this admin. Or type * for all hosts.', array(), TRUE);
+                    $ids = self::query(PHP_EOL.'Enter the ID number of the host you want to tie to this admin. Or type * for all hosts.', [], TRUE);
                 }
                 else
                 {
                     echo PHP_EOL.'Enter the ID numbers of the hosts you want to tie to this admin. Or type * for all hosts.'.PHP_EOL;
-                    $ids = self::query('Separate each ID number by a space', array(), TRUE);
+                    $ids = self::query('Separate each ID number by a space', [], TRUE);
                 }
 
                 // Validate user input
@@ -363,7 +363,7 @@ class Interactive
                 {
                     $exp = explode(' ', $ids);
                     $invalidIDs = '';
-                    $IDCache = array();
+                    $IDCache = [];
                     foreach ($exp as $e)
                     {
                         if ($e == '')
@@ -392,14 +392,9 @@ class Interactive
             $tmp['connection']            = $hostIDs;
             $tmp['accessFlags']            = 'abcdefghijklmnopqrstuvwxyz';
 
-            $vars[$tmp['username']]     = array(
-                'password'        => sha1($tmp['password'].$PRISM->config->cvars['secToken']),
-                'connection'    => $tmp['connection'],
-                'accessFlags'    => $tmp['accessFlags'],
-                'realmDigest'    => md5($tmp['username'].':'.HTTP_AUTH_REALM.':'.$tmp['password']),
-            );
+            $vars[$tmp['username']]     = ['password'        => sha1($tmp['password'].$PRISM->config->cvars['secToken']), 'connection'    => $tmp['connection'], 'accessFlags'    => $tmp['accessFlags'], 'realmDigest'    => md5($tmp['username'].':'.HTTP_AUTH_REALM.':'.$tmp['password'])];
 
-            if (self::query(PHP_EOL.'Add another admin account?', array('yes', 'no')) == 'no')
+            if (self::query(PHP_EOL.'Add another admin account?', ['yes', 'no']) == 'no')
                 break;
         } while(true);
     }
@@ -408,7 +403,7 @@ class Interactive
      *    $options    - optional array of answers of which one must be matched.
      *    $allowEmpty    - whether to allow an empty input or not.
      */
-    public static function query($question, array $options = array(), $allowEmpty = false)
+    public static function query($question, array $options = [], $allowEmpty = false)
     {
         $input = '';
         $numOptions = count($options);

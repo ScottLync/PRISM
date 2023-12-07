@@ -39,10 +39,10 @@ define('STREAM_WRITE_BYTES',    1400);
 **/
 class HostHandler extends SectionHandler
 {
-    private $connvars        = array();
-    private $hosts            = array();            # Stores references to the hosts we're connected to
+    private $connvars        = [];
+    private $hosts            = [];            # Stores references to the hosts we're connected to
 
-    public $state            = array();
+    public $state            = [];
 
     public $curHostID        = NULL;                # Contains the current HostID we are talking to.
 
@@ -85,7 +85,7 @@ class HostHandler extends SectionHandler
         }
 
         // Cleanup any existing connections (in case of re-initialise)
-        $this->hosts = array();
+        $this->hosts = [];
 
         // Populate $this->hosts array from the connections.ini variables we've just read
         $this->populateHostsFromVars();
@@ -97,7 +97,7 @@ class HostHandler extends SectionHandler
     {
         global $PRISM;
 
-        $udpPortBuf = array();        // Duplicate udpPort (NLP/MCI or OutGauge port) value check array.
+        $udpPortBuf = [];        // Duplicate udpPort (NLP/MCI or OutGauge port) value check array.
 
         foreach ($this->connvars as $hostID => $v)
         {
@@ -113,18 +113,7 @@ class HostHandler extends SectionHandler
                 if ($hostName == '')
                     continue;
 
-                $icVars = array (
-                    'connType'        => CONNTYPE_RELAY,
-                    'socketType'    => SOCKTYPE_TCP,
-                    'id'             => $hostID,
-                    'ip'            => $PRISM->config->cvars['relayIP'],
-                    'port'            => $PRISM->config->cvars['relayPort'],
-                    'hostName'        => $hostName,
-                    'adminPass'        => $adminPass,
-                    'specPass'        => $specPass,
-                    'prefix'        => $prefix,
-                    'pps'            => $PRISM->config->cvars['relayPPS'],
-                );
+                $icVars = ['connType'        => CONNTYPE_RELAY, 'socketType'    => SOCKTYPE_TCP, 'id'             => $hostID, 'ip'            => $PRISM->config->cvars['relayIP'], 'port'            => $PRISM->config->cvars['relayPort'], 'hostName'        => $hostName, 'adminPass'        => $adminPass, 'specPass'        => $specPass, 'prefix'        => $prefix, 'pps'            => $PRISM->config->cvars['relayPPS']];
                 $ic = new InsimConnection($icVars);
 
                 $this->hosts[$hostID] = $ic;
@@ -175,19 +164,7 @@ class HostHandler extends SectionHandler
                 }
 
                 // Create new ic object
-                $icVars = array (
-                    'connType'        => CONNTYPE_HOST,
-                    'socketType'    => $socketType,
-                    'id'            => $hostID,
-                    'ip'            => $ip,
-                    'port'            => $port,
-                    'udpPort'        => $udpPort,
-                    'outgaugePort'    => $outgaugePort,
-                    'flags'            => $flags,
-                    'pps'            => $pps,
-                    'adminPass'        => $adminPass,
-                    'prefix'        => $prefix,
-                );
+                $icVars = ['connType'        => CONNTYPE_HOST, 'socketType'    => $socketType, 'id'            => $hostID, 'ip'            => $ip, 'port'            => $port, 'udpPort'        => $udpPort, 'outgaugePort'    => $outgaugePort, 'flags'            => $flags, 'pps'            => $pps, 'adminPass'        => $adminPass, 'prefix'        => $prefix];
                 $ic = new InsimConnection($icVars);
 
                 if ($ic->getUdpPort() > 0)
@@ -288,8 +265,8 @@ class HostHandler extends SectionHandler
 
                 // Check if remote replied negatively
                 # Error suppressed, because of the underlying CRT (C Run Time) producing an error on Windows.
-                $r = array($host->getSocket());
-                $w = $e = array();
+                $r = [$host->getSocket()];
+                $w = $e = [];
                 $nr = @stream_select($r, $w, $e, 0);
                 if ($nr > 0)
                 {
@@ -649,21 +626,10 @@ class HostHandler extends SectionHandler
 
     public function &getHostsInfo()
     {
-        $info = array();
+        $info = [];
         foreach ($this->hosts as $hostID => $host)
         {
-            $info[] = array(
-                'id'            => $hostID,
-                'ip'            => $host->getIP(),
-                'port'            => $host->getPort(),
-                'useRelay'        => $host->isRelay(),
-                'hostname'        => $host->getHostname(),
-                'udpPort'        => $host->getUdpPort(),
-                'flags'            => $host->getFlags(),
-                'isAdmin'        => $host->isAdmin(),
-                'connStatus'    => $host->getConnStatus(),
-                'socketType'    => $host->getSocketType(),
-            );
+            $info[] = ['id'            => $hostID, 'ip'            => $host->getIP(), 'port'            => $host->getPort(), 'useRelay'        => $host->isRelay(), 'hostname'        => $host->getHostname(), 'udpPort'        => $host->getUdpPort(), 'flags'            => $host->getFlags(), 'isAdmin'        => $host->isAdmin(), 'connStatus'    => $host->getConnStatus(), 'socketType'    => $host->getSocketType()];
         }
         return $info;
     }
@@ -681,7 +647,7 @@ class HostHandler extends SectionHandler
 
     public function getHostsByIp($ip)
     {
-        $hosts = array();
+        $hosts = [];
         foreach ($this->hosts as $hostID => $host)
         {
             if ($ip == $host->getIP())

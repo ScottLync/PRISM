@@ -8,14 +8,14 @@ class debugger extends Plugins
 	const VERSION = '';
 	const DESCRIPTION = 'Use this plugin to send errors from PHP to your LFS server';
 
-	protected $Error = array();
-	protected $conns = array();
+	protected $Error = [];
+	protected $conns = [];
 
 	public function __construct()
 	{
 		# PHP Stuff
-		set_error_handler(array($this, 'onPrismError'));
-		register_shutdown_function(array($this, 'onPrismClose'));
+		set_error_handler([$this, 'onPrismError']);
+		register_shutdown_function([$this, 'onPrismClose']);
 
 		$this->registerPacket('onPrismConnect', ISP_VER);
 

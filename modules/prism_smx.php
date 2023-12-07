@@ -20,7 +20,7 @@ class SMX
     public $Track;
     public $GroundColor;
     public $Objects;
-    public $Object = array();
+    public $Object = [];
 
     public function __construct($smxFilePath)
     {
@@ -65,10 +65,10 @@ class Object
     const POINT = 'VX/VY/VZ/VColour';
     const TRIANGLE = 'vA/vB/vC/x2';
 
-    public $Center = array();
-    public $Radius = array();
-    public $Points = array();
-    public $Triangles = array();
+    public $Center = [];
+    public $Radius = [];
+    public $Points = [];
+    public $Triangles = [];
 
     public function __construct(&$offset, $file)
     {
@@ -85,12 +85,12 @@ class Object
         $offset += 12;
 
         # Point
-        for ($i = 0, $Points = $this->Points, $this->Points = array(); $i < $Points; ++$i, $offset += 16) {
+        for ($i = 0, $Points = $this->Points, $this->Points = []; $i < $Points; ++$i, $offset += 16) {
             $this->Points[$i] = unpack(Object::POINT, substr($file, $offset, 16));
         }
 
         # Triangle
-        for ($i = 0, $Triangles = $this->Triangles, $this->Triangles = array(); $i < $Triangles; ++$i, $offset += 8) {
+        for ($i = 0, $Triangles = $this->Triangles, $this->Triangles = []; $i < $Triangles; ++$i, $offset += 8) {
             $this->Triangles[$i] = unpack(Object::TRIANGLE, substr($file, $offset, 8));
         }
     }

@@ -166,7 +166,7 @@ class TSAdminContentSection extends TSSection
 {
     private $actionType        = 0;
     private $username        = '';
-    private $userDetails    = array();
+    private $userDetails    = [];
 
     public function __construct(ScreenContainer $parentSection, $actionType, $width, $height, $username, $ttype = 0)
     {
@@ -246,7 +246,7 @@ class TSAdminContentSection extends TSSection
                     $this,
                     'handleAdminInput',
                     TELNET_MODE_LINEEDIT,
-                    array(31 + strlen($object->getText()), 6),
+                    [31 + strlen($object->getText()), 6],
                     $object->getText(),
                     23
                 );
@@ -260,7 +260,7 @@ class TSAdminContentSection extends TSSection
                         $this,
                         'handleAdminInput',
                         TELNET_MODE_LINEEDIT,
-                        array(31 + strlen($object->getText()), 10),
+                        [31 + strlen($object->getText()), 10],
                         $object->getText(),
                         24
                     );
@@ -271,7 +271,7 @@ class TSAdminContentSection extends TSSection
                         $this,
                         'handleAdminInput',
                         TELNET_MODE_LINEEDIT,
-                        array(31 + strlen($object->getText()), 6),
+                        [31 + strlen($object->getText()), 6],
                         $object->getText(),
                         24
                     );
@@ -286,7 +286,7 @@ class TSAdminContentSection extends TSSection
                         $this,
                         'handleAdminInput',
                         TELNET_MODE_LINEEDIT,
-                        array(31 + strlen($object->getText()), 14),
+                        [31 + strlen($object->getText()), 14],
                         $object->getText(),
                         26
                     );
@@ -297,7 +297,7 @@ class TSAdminContentSection extends TSSection
                         $this,
                         'handleAdminInput',
                         TELNET_MODE_LINEEDIT,
-                        array(31 + strlen($object->getText()), 10),
+                        [31 + strlen($object->getText()), 10],
                         $object->getText(),
                         26
                     );

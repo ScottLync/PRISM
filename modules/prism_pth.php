@@ -18,9 +18,9 @@ class Path
     public $Revision = 0;
     public $NumNodes;
     public $FinishLine;
-    public $Nodes = array();
-    public $polyRoad = array();
-    public $polyLimit = array();
+    public $Nodes = [];
+    public $polyRoad = [];
+    public $polyLimit = [];
 
     public function __construct($pthFilePath)
     {
@@ -82,14 +82,14 @@ class Path
             $pd = new Point2D($Nodes->Direction->Y * $Nodes->$limitRoad->Right + $Nodes->Center->X,
                              -$Nodes->Direction->X * $Nodes->$limitRoad->Right + $Nodes->Center->Y);
 
-            $nodePolys[] = new Polygon2D(array($pa, $pb, $pd, $pc));
+            $nodePolys[] = new Polygon2D([$pa, $pb, $pd, $pc]);
 
             $pa = $pc;
             $pb = $pd;
         }
 
         // Close the path
-        $nodePolys[] = new Polygon2D(array($pa, $pb, $nodePolys[0]->points[1], $nodePolys[0]->points[0]));
+        $nodePolys[] = new Polygon2D([$pa, $pb, $nodePolys[0]->points[1], $nodePolys[0]->points[0]]);
     }
     public function isOnRoad($x, $y, $NodeID)
     {
@@ -173,7 +173,7 @@ class Path
             $lrx = ($Node->Direction->X * $RightCos - (-$Node->Direction->Y) * $RightSin) * -$Node->Limit->Right + ($Node->Center->X + 1024);
             $lry = ((-$Node->Direction->Y) * $RightCos + $Node->Direction->X * $RightSin) * -$Node->Limit->Right + ((-$Node->Center->Y) + 1024);
 
-            $l_array = array ($llx2, $lly2, $llx, $lly, $lrx, $lry, $lrx2, $lry2);
+            $l_array = [$llx2, $lly2, $llx, $lly, $lrx, $lry, $lrx2, $lry2];
             imagefilledpolygon($im, $l_array, 4, $limit_col);
 
             $llx2 = $llx;
@@ -187,7 +187,7 @@ class Path
             $drx = ($Node->Direction->X * $RightCos - (-$Node->Direction->Y) * $RightSin) * -$Node->Road->Right + ($Node->Center->X + 1024);
             $dry = ((-$Node->Direction->Y) * $RightCos + $Node->Direction->X * $RightSin) * -$Node->Road->Right + ((-$Node->Center->Y) + 1024);
 
-            $d_array = array ($dlx2, $dly2, $dlx, $dly, $drx, $dry, $drx2, $dry2);
+            $d_array = [$dlx2, $dly2, $dlx, $dly, $drx, $dry, $drx2, $dry2];
             imagefilledpolygon($im, $d_array, 4, $drive_col);
 
             $dlx2 = $dlx;

@@ -19,10 +19,10 @@ define('TELNET_LOGGED_IN', 3);
 class TelnetHandler extends SectionHandler
 {
     private $telnetSock        = null;
-    private $clients        = array();
+    private $clients        = [];
     private $numClients        = 0;
 
-    private $telnetVars        = array();
+    private $telnetVars        = [];
 
     public function __construct()
     {
@@ -38,11 +38,7 @@ class TelnetHandler extends SectionHandler
     {
         global $PRISM;
 
-        $this->telnetVars = array
-        (
-            'ip' => '',
-            'port' => 0,
-        );
+        $this->telnetVars = ['ip' => '', 'port' => 0];
 
         if ($this->loadIniFile($this->telnetVars, false)) {
             if ($PRISM->config->cvars['debugMode'] & PRISM_DEBUG_CORE) {
@@ -64,7 +60,7 @@ class TelnetHandler extends SectionHandler
 ;
 
 ININOTES;
-            if ($this->createIniFile('Telnet Configuration (remote console)', array('telnet' => &$this->telnetVars), $extraInfo)) {
+            if ($this->createIniFile('Telnet Configuration (remote console)', ['telnet' => &$this->telnetVars], $extraInfo)) {
                 console('Generated config/'.$this->iniFile);
             }
         }

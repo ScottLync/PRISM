@@ -10,9 +10,9 @@ class LVS extends Plugins
 	const PATH = '/data/pth/';
 
 	private $pth = null;
-	private $lapValidation = array();
-	private $onLap = array();
-	private $onRoad = array();
+	private $lapValidation = [];
+	private $onLap = [];
+	private $onRoad = [];
 	private $Track = NULL;
 
 	public function __construct()
@@ -75,7 +75,7 @@ class LVS extends Plugins
 	public function onNewPlayer(IS_NPL $NPL)
 	{
 		$this->onLap[$NPL->PLID] = 1;
-		$this->lapValidation[$NPL->PLID] = array(1 => TRUE);
+		$this->lapValidation[$NPL->PLID] = [1 => TRUE];
 	}
 
 	public function onPlayerLeave(IS_PLL $PLL)

@@ -84,8 +84,8 @@ class PHPInSimMod
     public function __construct()
     {
         // This reregisters our autoload magic function into the class.
-        spl_autoload_register(__CLASS__ . '::_autoload');
-        set_error_handler(__CLASS__ . '::_errorHandler', E_ALL | E_STRICT);
+        spl_autoload_register(self::class . '::_autoload');
+        set_error_handler(self::class . '::_errorHandler', E_ALL | E_STRICT);
 
         // Windows OS check
         if (preg_match('/^win/i', PHP_OS))
@@ -202,7 +202,7 @@ class PHPInSimMod
     {
         while ($this->isRunning === true) {
             // Setup our listen arrays
-            $sockReads = $sockWrites = $socketExcept = array();
+            $sockReads = $sockWrites = $socketExcept = [];
 
             if (!$this->isWindows)
                 $sockReads[] = STDIN;

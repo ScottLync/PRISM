@@ -1,11 +1,11 @@
 <?php
 class Timers
 {
-    protected $timers = array();    # Array of timers.
+    protected $timers = [];    # Array of timers.
     protected $timeout = NULL;        # When the next timeout is, read only from outside of this class.
 
     // Registers a callback method.
-    protected function createTimer($callback, $interval = 1.0, $flags = Timer::CLOSE, $args = array())
+    protected function createTimer($callback, $interval = 1.0, $flags = Timer::CLOSE, $args = [])
     {
         # Uniqe Timer ID based on time in microseconds prepended by a random number
         $name = uniqid(mt_rand(), true);
@@ -13,7 +13,7 @@ class Timers
     }
 
     // Create a timer with a name so that it can be removed on demand
-    protected function createNamedTimer($name, $callback, $interval = 1.0, $flags = Timer::CLOSE, $args = array())
+    protected function createNamedTimer($name, $callback, $interval = 1.0, $flags = Timer::CLOSE, $args = [])
     {
         # Adds our timer to the array.
         $this->timers["$name"] = new Timer($this, $callback, $interval, $flags, $args);
@@ -79,7 +79,7 @@ class Timer
     protected $flags;
     protected $interval;
 
-    public function __construct(&$parent, $callback, $interval = 1.0, $flags = Timer::CLOSE, $args = array())
+    public function __construct(&$parent, $callback, $interval = 1.0, $flags = Timer::CLOSE, $args = [])
     {
         $this->parent =& $parent;
         $this->setCallback($callback);
@@ -109,7 +109,7 @@ class Timer
 
     public function execute()
     {
-        return call_user_func_array(array(&$this->parent, $this->callback), $this->args);
+        return call_user_func_array([&$this->parent, $this->callback], $this->args);
     }
 }
 ?>

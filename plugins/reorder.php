@@ -7,7 +7,7 @@ class reorder extends Plugins
     const VERSION = PHPInSimMod::VERSION;
     const DESCRIPTION = 'Reorder Players on the Starting Grid';
 
-    private $PLID = array();
+    private $PLID = [];
     private $reorder = FALSE;
     private $IS_REO;
 
@@ -28,7 +28,7 @@ class reorder extends Plugins
         }
 
         $this->reorder = TRUE;
-        $this->PLID = array();
+        $this->PLID = [];
 
         foreach ($argv as $UName){
             $Player = $this->getPlayerByUName($UName);

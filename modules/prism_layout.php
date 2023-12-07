@@ -10,7 +10,7 @@ class LayoutParser {
     /** Base path for layouts. Ends on / */
     private $basePath;
 
-    private $objects = array();
+    private $objects = [];
 
     const UNPACK = 'x6/Cversion/Crevision/vnumObjects/Claps/x';
     const PACK = 'a6CCvCC';
@@ -85,7 +85,7 @@ class LayoutParser {
     }
 
     public function clearLayout() {
-        $this->objects = array();
+        $this->objects = [];
     }
 
     public function addObject($obj) {

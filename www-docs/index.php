@@ -122,11 +122,6 @@ if (isset($_SESSION))
 }
 else
 {
-	$_SESSION = array
-	(
-		'counter' => 1, 
-		'staticvar' => 'mooh', 
-		'lasttime' => time()
-	);
+	$_SESSION = ['counter' => 1, 'staticvar' => 'mooh', 'lasttime' => time()];
 }
 ?>

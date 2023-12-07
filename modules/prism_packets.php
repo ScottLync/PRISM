@@ -158,7 +158,7 @@ abstract class Struct
 
     public function parseUnpackFormat()
     {
-        $return = array();
+        $return = [];
 
         foreach (explode('/', $this::UNPACK) as $element) {
             for ($i = 1; is_numeric($element{$i}); ++$i) {}
@@ -174,7 +174,7 @@ abstract class Struct
     public function parsePackFormat()
     {
         $format = $this::PACK; # It does not like using $this::PACK directly.
-        $elements = array();
+        $elements = [];
 
         for ($i = 0, $j = 1, $k = strLen($format); $i < $k; ++$i, ++$j)
         {    # i = Current Character; j = Look ahead for numbers.
@@ -195,7 +195,7 @@ abstract class Struct
                 {    # In these cases it's a string type where dealing with.
                     $elements[] = $format{$i}.$number;
                 } else { # In these cases, we should get an array.
-                    $elements[] = array($format{$i}, $number);
+                    $elements[] = [$format{$i}, $number];
                 }
 
                 $i = $j - 1; # Movies the pointer to the end of this element.
@@ -411,7 +411,7 @@ define('ISF_HLV',       256);       // bit  8 : receive HLV packets
 define('ISF_AXM_LOAD',  512);       // bit  9 : receive AXM when loading a layout
 define('ISF_AXM_EDIT',  1024);      // bit 10 : receive AXM when changing objects
 define('ISF_REQ_JOIN',  2048);      // bit 11 : process join requests
-$ISF = array(ISF_RES_0 => 'ISF_RES_0', ISF_RES_1 => 'ISF_RES_1', ISF_LOCAL => 'ISF_LOCAL', ISF_MSO_COLS => 'ISF_MSO_COLS', ISF_NLP => 'ISF_NLP', ISF_MCI => 'ISF_MCI', ISF_CON => 'ISF_CON', ISF_OBH => 'ISF_OBH', ISF_HLV => 'ISF_HLV', ISF_AXM_LOAD => 'ISF_AXM_LOAD', ISF_AXM_EDIT => 'ISF_AXM_EDIT', ISF_REQ_JOIN => 'ISF_REQ_JOIN');
+$ISF = [ISF_RES_0 => 'ISF_RES_0', ISF_RES_1 => 'ISF_RES_1', ISF_LOCAL => 'ISF_LOCAL', ISF_MSO_COLS => 'ISF_MSO_COLS', ISF_NLP => 'ISF_NLP', ISF_MCI => 'ISF_MCI', ISF_CON => 'ISF_CON', ISF_OBH => 'ISF_OBH', ISF_HLV => 'ISF_HLV', ISF_AXM_LOAD => 'ISF_AXM_LOAD', ISF_AXM_EDIT => 'ISF_AXM_EDIT', ISF_REQ_JOIN => 'ISF_REQ_JOIN'];
 
 // In most cases you should not set both ISF_NLP and ISF_MCI flags
 // because all IS_NLP information is included in the IS_MCI packet.
@@ -496,7 +496,7 @@ define('ISP_OCO',    60);   // 60 - instruction     : object control (currently 
 define('ISP_TTC',    61);   // 61 - instruction     : multi purpose - target to connection
 define('ISP_SLC',    62);   // 62 - info            : connection selected a car
 define('ISP_CSC',    63);   // 63 - info            : car state changed
-$ISP = array(ISP_NONE => 'ISP_NONE', ISP_ISI => 'ISP_ISI', ISP_VER => 'ISP_VER', ISP_TINY => 'ISP_TINY', ISP_SMALL => 'ISP_SMALL', ISP_STA => 'ISP_STA', ISP_SCH => 'ISP_SCH', ISP_SFP => 'ISP_SFP', ISP_SCC => 'ISP_SCC', ISP_CPP => 'ISP_CPP', ISP_ISM => 'ISP_ISM', ISP_MSO => 'ISP_MSO', ISP_III => 'ISP_III', ISP_MST => 'ISP_MST', ISP_MTC => 'ISP_MTC', ISP_MOD => 'ISP_MOD', ISP_VTN => 'ISP_VTN', ISP_RST => 'ISP_RST', ISP_NCN => 'ISP_NCN', ISP_MTC => 'ISP_MTC', ISP_CNL => 'ISP_CNL', ISP_CPR => 'ISP_CPR', ISP_NPL => 'ISP_NPL', ISP_PLP => 'ISP_PLP', ISP_PLL => 'ISP_PLL', ISP_LAP => 'ISP_LAP', ISP_SPX => 'ISP_SPX', ISP_PIT => 'ISP_PIT', ISP_PSF => 'ISP_PSF', ISP_PLA => 'ISP_PLA', ISP_CCH => 'ISP_CCH', ISP_PEN => 'ISP_PEN', ISP_TOC => 'ISP_TOC', ISP_FLG => 'ISP_FLG', ISP_PFL => 'ISP_PFL', ISP_FIN => 'ISP_FIN', ISP_RES => 'ISP_RES', ISP_REO => 'ISP_REO', ISP_NLP => 'ISP_NLP', ISP_MCI => 'ISP_MCI', ISP_MSX => 'ISP_MSX', ISP_MSL => 'ISP_MSL', ISP_CRS => 'ISP_CRS', ISP_BFN => 'ISP_BFN', ISP_AXI => 'ISP_AXI', ISP_AXO => 'ISP_AXO', ISP_BTN => 'ISP_BTN', ISP_BTC => 'ISP_BTC', ISP_BTT => 'ISP_BTT', ISP_RIP => 'ISP_RIP', ISP_SSH => 'ISP_SSH', ISP_CON => 'ISP_CON', ISP_OBH => 'ISP_OBH', ISP_HLV => 'ISP_HLV', ISP_PLC => 'ISP_PLC', ISP_AXM => 'ISP_AXM', ISP_ACR => 'ISP_ACR', ISP_HCP => 'ISP_HCP', ISP_NCI => 'ISP_NCI', ISP_JRR => 'ISP_JRR', ISP_UCO => 'ISP_UCO', ISP_OCO => 'ISP_OCO', ISP_TTC => 'ISP_TTC', ISP_SLC => 'ISP_SLC', ISP_CSC => 'ISP_CSC');
+$ISP = [ISP_NONE => 'ISP_NONE', ISP_ISI => 'ISP_ISI', ISP_VER => 'ISP_VER', ISP_TINY => 'ISP_TINY', ISP_SMALL => 'ISP_SMALL', ISP_STA => 'ISP_STA', ISP_SCH => 'ISP_SCH', ISP_SFP => 'ISP_SFP', ISP_SCC => 'ISP_SCC', ISP_CPP => 'ISP_CPP', ISP_ISM => 'ISP_ISM', ISP_MSO => 'ISP_MSO', ISP_III => 'ISP_III', ISP_MST => 'ISP_MST', ISP_MTC => 'ISP_MTC', ISP_MOD => 'ISP_MOD', ISP_VTN => 'ISP_VTN', ISP_RST => 'ISP_RST', ISP_NCN => 'ISP_NCN', ISP_MTC => 'ISP_MTC', ISP_CNL => 'ISP_CNL', ISP_CPR => 'ISP_CPR', ISP_NPL => 'ISP_NPL', ISP_PLP => 'ISP_PLP', ISP_PLL => 'ISP_PLL', ISP_LAP => 'ISP_LAP', ISP_SPX => 'ISP_SPX', ISP_PIT => 'ISP_PIT', ISP_PSF => 'ISP_PSF', ISP_PLA => 'ISP_PLA', ISP_CCH => 'ISP_CCH', ISP_PEN => 'ISP_PEN', ISP_TOC => 'ISP_TOC', ISP_FLG => 'ISP_FLG', ISP_PFL => 'ISP_PFL', ISP_FIN => 'ISP_FIN', ISP_RES => 'ISP_RES', ISP_REO => 'ISP_REO', ISP_NLP => 'ISP_NLP', ISP_MCI => 'ISP_MCI', ISP_MSX => 'ISP_MSX', ISP_MSL => 'ISP_MSL', ISP_CRS => 'ISP_CRS', ISP_BFN => 'ISP_BFN', ISP_AXI => 'ISP_AXI', ISP_AXO => 'ISP_AXO', ISP_BTN => 'ISP_BTN', ISP_BTC => 'ISP_BTC', ISP_BTT => 'ISP_BTT', ISP_RIP => 'ISP_RIP', ISP_SSH => 'ISP_SSH', ISP_CON => 'ISP_CON', ISP_OBH => 'ISP_OBH', ISP_HLV => 'ISP_HLV', ISP_PLC => 'ISP_PLC', ISP_AXM => 'ISP_AXM', ISP_ACR => 'ISP_ACR', ISP_HCP => 'ISP_HCP', ISP_NCI => 'ISP_NCI', ISP_JRR => 'ISP_JRR', ISP_UCO => 'ISP_UCO', ISP_OCO => 'ISP_OCO', ISP_TTC => 'ISP_TTC', ISP_SLC => 'ISP_SLC', ISP_CSC => 'ISP_CSC'];
 
 // the fourth byte of an IS_TINY packet is one of these
 define('TINY_NONE',     0);     //  0 - keep alive        : see "maintaining the connection"
@@ -526,7 +526,7 @@ define('TINY_NCI',      23);    // 23 - info request    : get NCI for all guests
 define('TINY_ALC',      24);    // 24 - info request    : send a SMALL_ALC (allowed cars)
 define('TINY_AXM',      25);    // 25 - info request    : send IS_AXM packets for the entire layout
 define('TINY_SLC',      26);    // 26 - info request    : send IS_SLC packets for all connections
-$TINY = array(TINY_NONE => 'TINY_NONE', TINY_VER => 'TINY_VER', TINY_CLOSE => 'TINY_CLOSE', TINY_PING => 'TINY_PING', TINY_REPLY => 'TINY_REPLY', TINY_VTC => 'TINY_VTC', TINY_SCP => 'TINY_SCP', TINY_SST => 'TINY_SST', TINY_GTH => 'TINY_GTH', TINY_MPE => 'TINY_MPE', TINY_ISM => 'TINY_ISM', TINY_REN => 'TINY_REN', TINY_CLR => 'TINY_CLR', TINY_NCN => 'TINY_NCN', TINY_NPL => 'TINY_NPL', TINY_RES => 'TINY_RES', TINY_NLP => 'TINY_NLP', TINY_MCI => 'TINY_MCI', TINY_REO => 'TINY_REO', TINY_RST => 'TINY_RST', TINY_AXI => 'TINY_AXI', TINY_AXC => 'TINY_AXC', TINY_RIP => 'TINY_RIP', TINY_NCI => 'TINY_NCI', TINY_ALC => 'TINY_ALC', TINY_AXM => 'TINY_AXM', TINY_SLC => 'TINY_SLC');
+$TINY = [TINY_NONE => 'TINY_NONE', TINY_VER => 'TINY_VER', TINY_CLOSE => 'TINY_CLOSE', TINY_PING => 'TINY_PING', TINY_REPLY => 'TINY_REPLY', TINY_VTC => 'TINY_VTC', TINY_SCP => 'TINY_SCP', TINY_SST => 'TINY_SST', TINY_GTH => 'TINY_GTH', TINY_MPE => 'TINY_MPE', TINY_ISM => 'TINY_ISM', TINY_REN => 'TINY_REN', TINY_CLR => 'TINY_CLR', TINY_NCN => 'TINY_NCN', TINY_NPL => 'TINY_NPL', TINY_RES => 'TINY_RES', TINY_NLP => 'TINY_NLP', TINY_MCI => 'TINY_MCI', TINY_REO => 'TINY_REO', TINY_RST => 'TINY_RST', TINY_AXI => 'TINY_AXI', TINY_AXC => 'TINY_AXC', TINY_RIP => 'TINY_RIP', TINY_NCI => 'TINY_NCI', TINY_ALC => 'TINY_ALC', TINY_AXM => 'TINY_AXM', TINY_SLC => 'TINY_SLC'];
 
 // the fourth byte of an IS_SMALL packet is one of these
 define('SMALL_NONE',    0);    //  0                    : not used
@@ -539,12 +539,12 @@ define('SMALL_RTP',     6);    //  6 - info             : race time packet (repl
 define('SMALL_NLI',     7);    //  7 - inStruction      : set node lap interval
 define('SMALL_ALC',     8);    //  8 - both ways        : set or get allowed cars (TINY_ALC)
 define('SMALL_LCS',     9);    //  9 - instruction      : set local car switches (lights, horn, siren)
-$SMALL = array(SMALL_NONE => 'SMALL_NONE', SMALL_SSP => 'SMALL_SSP', SMALL_SSG => 'SMALL_SSG', SMALL_VTA => 'SMALL_VTA', SMALL_TMS => 'SMALL_TMS', SMALL_STP => 'SMALL_STP', SMALL_RTP => 'SMALL_RTP', SMALL_NLI => 'SMALL_NLI', SMALL_ALC => 'SMALL_ALC', SMALL_LCS => 'SMALL_LCS');
+$SMALL = [SMALL_NONE => 'SMALL_NONE', SMALL_SSP => 'SMALL_SSP', SMALL_SSG => 'SMALL_SSG', SMALL_VTA => 'SMALL_VTA', SMALL_TMS => 'SMALL_TMS', SMALL_STP => 'SMALL_STP', SMALL_RTP => 'SMALL_RTP', SMALL_NLI => 'SMALL_NLI', SMALL_ALC => 'SMALL_ALC', SMALL_LCS => 'SMALL_LCS'];
 
 // the fourth byte of an IS_TTC packet is one of these
 define('TTC_NONE',      0);    //  0                : not used
 define('TTC_SEL',       1);    //  1 - info request : send IS_AXM for a layout editor selection
-$TTC = array(TTC_NONE => 'TTC_NONE', TTC_SEL => 'TTC_SEL');
+$TTC = [TTC_NONE => 'TTC_NONE', TTC_SEL => 'TTC_SEL'];
 
 // GENERAL PURPOSE PACKETS - IS_TINY (4 bytes) / IS_SMALL (8 bytes) / IS_TTC (8 bytes)
 // =======================
@@ -730,7 +730,7 @@ define('ISS_SOUND_MUTE',    4096);  // sound is switched off
 define('ISS_VIEW_OVERRIDE', 8192);  // override user view
 define('ISS_VISIBLE',       16384); // InSim buttons visible
 define('ISS_TEXT_ENTRY',    32768); // in a text entry dialog
-$ISS = array(ISS_GAME => 'ISS_GAME', ISS_REPLAY => 'ISS_REPLAY', ISS_PAUSED => 'ISS_PAUSED', ISS_SHIFTU => 'ISS_SHIFTU', ISS_DIALOG => 'ISS_DIALOG', ISS_SHIFTU_FOLLOW => 'ISS_SHIFTU_FOLLOW', ISS_SHIFTU_NO_OPT => 'ISS_SHIFTU_NO_OPT', ISS_SHOW_2D => 'ISS_SHOW_2D', ISS_FRONT_END => 'ISS_FRONT_END', ISS_MULTI => 'ISS_MULTI', ISS_MPSPEEDUP => 'ISS_MPSPEEDUP', ISS_WINDOWED => 'ISS_WINDOWED', ISS_SOUND_MUTE => 'ISS_SOUND_MUTE', ISS_VIEW_OVERRIDE => 'ISS_VIEW_OVERRIDE', ISS_VISIBLE => 'ISS_VISIBLE', ISS_TEXT_ENTRY => 'ISS_TEXT_ENTRY');
+$ISS = [ISS_GAME => 'ISS_GAME', ISS_REPLAY => 'ISS_REPLAY', ISS_PAUSED => 'ISS_PAUSED', ISS_SHIFTU => 'ISS_SHIFTU', ISS_DIALOG => 'ISS_DIALOG', ISS_SHIFTU_FOLLOW => 'ISS_SHIFTU_FOLLOW', ISS_SHIFTU_NO_OPT => 'ISS_SHIFTU_NO_OPT', ISS_SHOW_2D => 'ISS_SHOW_2D', ISS_FRONT_END => 'ISS_FRONT_END', ISS_MULTI => 'ISS_MULTI', ISS_MPSPEEDUP => 'ISS_MPSPEEDUP', ISS_WINDOWED => 'ISS_WINDOWED', ISS_SOUND_MUTE => 'ISS_SOUND_MUTE', ISS_VIEW_OVERRIDE => 'ISS_VIEW_OVERRIDE', ISS_VISIBLE => 'ISS_VISIBLE', ISS_TEXT_ENTRY => 'ISS_TEXT_ENTRY'];
 
 // To request a StatePack at any time, send this IS_TINY :
 
@@ -827,7 +827,7 @@ define('MSO_USER',      1);        // 1 - normal visible user message
 define('MSO_PREFIX',    2);        // 2 - hidden message starting with special prefix (see ISI)
 define('MSO_O',         3);        // 3 - hidden message typed on local pc with /o command
 define('MSO_NUM',       4);
-$MSO = array(MSO_SYSTEM => 'MSO_SYSTEM', MSO_USER => 'MSO_USER', MSO_PREFIX => 'MSO_PREFIX', MSO_O => 'MSO_O', MSO_NUM => 'MSO_NUM');
+$MSO = [MSO_SYSTEM => 'MSO_SYSTEM', MSO_USER => 'MSO_USER', MSO_PREFIX => 'MSO_PREFIX', MSO_O => 'MSO_O', MSO_NUM => 'MSO_NUM'];
 
 // NOTE : Typing "/o MESSAGE" into LFS will send an IS_MSO with UserType = MSO_O
 
@@ -1005,7 +1005,7 @@ define('SND_SYSMESSAGE',    2);
 define('SND_INVALIDKEY',    3);
 define('SND_ERROR',         4);
 define('SND_NUM',           5);
-$SND = array(SND_SILENT => 'SND_SILENT', SND_MESSAGE => 'SND_MESSAGE', SND_SYSMESSAGE => 'SND_SYSMESSAGE', SND_INVALIDKEY => 'SND_INVALIDKEY', SND_ERROR => 'SND_ERROR', SND_NUM => 'SND_NUM');
+$SND = [SND_SILENT => 'SND_SILENT', SND_MESSAGE => 'SND_MESSAGE', SND_SYSMESSAGE => 'SND_SYSMESSAGE', SND_INVALIDKEY => 'SND_INVALIDKEY', SND_ERROR => 'SND_ERROR', SND_NUM => 'SND_NUM'];
 
 // You can send individual key presses to LFS with the IS_SCH packet.
 // For standard keys (e.g. V and H) you should send a capital letter.
@@ -1049,7 +1049,7 @@ define('LCS_SET_FLASH',     2);     // bit 1
 define('LCS_SET_HEADLIGHTS',4);     // bit 2
 define('LCS_SET_HORN',      8);     // bit 3
 define('LCS_SET_SIREN',     0x10);  // bit 4
-$LCS = array(LCS_SET_SIGNALS => 'LCS_SET_SIGNALS', LCS_SET_FLASH => 'LCS_SET_FLASH', LCS_SET_HEADLIGHTS => 'LCS_SET_HEADLIGHTS', LCS_SET_HORN => 'LCS_SET_HORN', LCS_SET_SIREN => 'LCS_SET_SIREN');
+$LCS = [LCS_SET_SIGNALS => 'LCS_SET_SIGNALS', LCS_SET_FLASH => 'LCS_SET_FLASH', LCS_SET_HEADLIGHTS => 'LCS_SET_HEADLIGHTS', LCS_SET_HORN => 'LCS_SET_HORN', LCS_SET_SIREN => 'LCS_SET_SIREN'];
 
 // Depending on the above values, InSim will read some of the following values and try
 // to set them as required, if a real player is found on the local computer.
@@ -1110,7 +1110,7 @@ define('VOTE_END',        1);        // 1 - end race
 define('VOTE_RESTART',    2);        // 2 - restart
 define('VOTE_QUALIFY',    3);        // 3 - qualify
 define('VOTE_NUM',        4);
-$VOTE = array(VOTE_NONE => 'VOTE_NONE', VOTE_END => 'VOTE_END', VOTE_RESTART => 'VOTE_RESTART', VOTE_QUALIFY => 'VOTE_QUALIFY', VOTE_NUM => 'VOTE_NUM');
+$VOTE = [VOTE_NONE => 'VOTE_NONE', VOTE_END => 'VOTE_END', VOTE_RESTART => 'VOTE_RESTART', VOTE_QUALIFY => 'VOTE_QUALIFY', VOTE_NUM => 'VOTE_NUM'];
 
 class IS_VTN extends Struct // VoTe Notify
 {
@@ -1241,7 +1241,7 @@ class IS_HCP extends Struct // HandiCaPs
     public $ReqI;               # 0
     protected $Zero = null;
 
-    public $Info = array();     # H_Mass and H_TRes for each car : XF GTI = 0 / XR GT = 1 etc
+    public $Info = [];     # H_Mass and H_TRes for each car : XF GTI = 0 / XR GT = 1 etc
 
     public function unpack($rawPacket)
     {
@@ -1419,7 +1419,7 @@ define('LANG_UK', 34);
 define('LANG_ID', 35);
 define('LANG_RO', 36);
 
-$LANG = array(LANG_EN => 'LANG_EN', LANG_DE => 'LANG_DE', LANG_PT => 'LANG_PT', LANG_FR => 'LANG_FR', LANG_FI => 'LANG_FI', LANG_NN => 'LANG_NN', LANG_NL => 'LANG_NL', LANG_CA => 'LANG_CA', LANG_TR => 'LANG_TR', LANG_ES => 'LANG_ES', LANG_IT => 'LANG_IT', LANG_DA => 'LANG_DA', LANG_CS => 'LANG_CS', LANG_RU => 'LANG_RU', LANG_ET => 'LANG_ET', LANG_SR => 'LANG_SR', LANG_EL => 'LANG_EL', LANG_PL => 'LANG_PL', LANG_HR => 'LANG_HR', LANG_HU => 'LANG_HU', LANG_BR => 'LANG_BR', LANG_SV => 'LANG_SV', LANG_SK => 'LANG_SK', LANG_GL => 'LANG_GL', LANG_SL => 'LANG_SL', LANG_BE => 'LANG_BE', LANG_LV => 'LANG_LV', LANG_LT => 'LANG_LT', LANG_ZH => 'LANG_ZH', LANG_CN => 'LANG_CN', LANG_JA => 'LANG_JA', LANG_KO => 'LANG_KO', LANG_BG => 'LANG_BG', LANG_MX => 'LANG_MX', LANG_UK => 'LANG_UK', LANG_ID => 'LANG_ID', LANG_RO => 'LANG_RO');
+$LANG = [LANG_EN => 'LANG_EN', LANG_DE => 'LANG_DE', LANG_PT => 'LANG_PT', LANG_FR => 'LANG_FR', LANG_FI => 'LANG_FI', LANG_NN => 'LANG_NN', LANG_NL => 'LANG_NL', LANG_CA => 'LANG_CA', LANG_TR => 'LANG_TR', LANG_ES => 'LANG_ES', LANG_IT => 'LANG_IT', LANG_DA => 'LANG_DA', LANG_CS => 'LANG_CS', LANG_RU => 'LANG_RU', LANG_ET => 'LANG_ET', LANG_SR => 'LANG_SR', LANG_EL => 'LANG_EL', LANG_PL => 'LANG_PL', LANG_HR => 'LANG_HR', LANG_HU => 'LANG_HU', LANG_BR => 'LANG_BR', LANG_SV => 'LANG_SV', LANG_SK => 'LANG_SK', LANG_GL => 'LANG_GL', LANG_SL => 'LANG_SL', LANG_BE => 'LANG_BE', LANG_LV => 'LANG_LV', LANG_LT => 'LANG_LT', LANG_ZH => 'LANG_ZH', LANG_CN => 'LANG_CN', LANG_JA => 'LANG_JA', LANG_KO => 'LANG_KO', LANG_BG => 'LANG_BG', LANG_MX => 'LANG_MX', LANG_UK => 'LANG_UK', LANG_ID => 'LANG_ID', LANG_RO => 'LANG_RO'];
 
 class IS_SLC extends Struct // SeLected Car - sent when a connection selects a car (empty if no car)
 {
@@ -1483,7 +1483,7 @@ class IS_NPL extends Struct // New PLayer joining race (if PLID already exists, 
 
     public $CName;              # car name
     public $SName;              # skin name - MAX_CAR_TEX_NAME
-    public $Tyres = array();    # compounds
+    public $Tyres = [];    # compounds
 
     public $H_Mass;             # added mass (kg)
     public $H_TRes;             # intake restriction
@@ -1529,7 +1529,7 @@ class IS_NPL extends Struct // New PLayer joining race (if PLID already exists, 
 define('SETF_SYMM_WHEELS',  1);
 define('SETF_TC_ENABLE',    2);
 define('SETF_ABS_ENABLE',   4);
-$SETF = array(SETF_SYMM_WHEELS => 'SETF_SYMM_WHEELS', SETF_TC_ENABLE => 'SETF_TC_ENABLE', SETF_ABS_ENABLE => 'SETF_ABS_ENABLE');
+$SETF = [SETF_SYMM_WHEELS => 'SETF_SYMM_WHEELS', SETF_TC_ENABLE => 'SETF_TC_ENABLE', SETF_ABS_ENABLE => 'SETF_ABS_ENABLE'];
 
 // More...
 
@@ -1625,7 +1625,7 @@ class IS_PIT extends Struct // PIT stop (stop at pit garage)
     public $NumStops;           # number of pit stops
     protected $Sp3;
 
-    public $Tyres = array();    # tyres changed
+    public $Tyres = [];    # tyres changed
 
     public $Work;               # pit work
     protected $Spare;
@@ -1839,7 +1839,7 @@ class IS_REO extends Struct // REOrder (when race restarts after qualifying)
     public function unpack($rawPacket)
     {
         $pkClass = unpack($this::UNPACK, $rawPacket);
-        $pkClass['PLID'] = array();
+        $pkClass['PLID'] = [];
 
         for ($Pos = 1; $Pos <= 40; ++$Pos) {
             if ($pkClass["PLID{$Pos}"] != 0) {
@@ -1872,7 +1872,7 @@ define('PITLANE_NO_PURPOSE',    2);    // 2 - entered for no purpose
 define('PITLANE_DT',            3);    // 3 - entered for drive-through
 define('PITLANE_SG',            4);    // 4 - entered for stop-go
 define('PITLANE_NUM',           5);
-$PITLANE = array(PITLANE_EXIT => 'PITLANE_EXIT', PITLANE_ENTER => 'PITLANE_ENTER', PITLANE_NO_PURPOSE => 'PITLANE_NO_PURPOSE', PITLANE_DT => 'PITLANE_DT', PITLANE_SG => 'PITLANE_SG', PITLANE_NUM => 'PITLANE_NUM');
+$PITLANE = [PITLANE_EXIT => 'PITLANE_EXIT', PITLANE_ENTER => 'PITLANE_ENTER', PITLANE_NO_PURPOSE => 'PITLANE_NO_PURPOSE', PITLANE_DT => 'PITLANE_DT', PITLANE_SG => 'PITLANE_SG', PITLANE_NUM => 'PITLANE_NUM'];
 
 // Pit Work Flags
 
@@ -1895,7 +1895,7 @@ define('PSE_BODY_MAJOR',    (1 << 15));
 define('PSE_SETUP',         (1 << 16));
 define('PSE_REFUEL',        (1 << 17));
 define('PSE_NUM',            20);
-$PSE = array(PSE_NOTHING => 'PSE_NOTHING', PSE_STOP => 'PSE_STOP', PSE_FR_DAM => 'PSE_FR_DAM', PSE_FR_WHL => 'PSE_FR_WHL', PSE_LE_FR_DAM => 'PSE_LE_FR_DAM', PSE_LE_FR_WHL => 'PSE_LE_FR_WHL', PSE_RI_FR_DAM => 'PSE_RI_FR_DAM', PSE_RI_FR_WHL => 'PSE_RI_FR_WHL', PSE_RE_DAM => 'PSE_RE_DAM', PSE_RE_WHL => 'PSE_RE_WHL', PSE_LE_RE_DAM => 'PSE_LE_RE_DAM', PSE_LE_RE_WHL => 'PSE_LE_RE_WHL', PSE_RI_RE_DAM => 'PSE_RI_RE_DAM', PSE_RI_RE_WHL => 'PSE_RI_RE_WHL', PSE_BODY_MINOR => 'PSE_BODY_MINOR', PSE_BODY_MAJOR => 'PSE_BODY_MAJOR', PSE_SETUP => 'PSE_SETUP', PSE_REFUEL => 'PSE_REFUEL', PSE_NUM => 'PSE_NUM');
+$PSE = [PSE_NOTHING => 'PSE_NOTHING', PSE_STOP => 'PSE_STOP', PSE_FR_DAM => 'PSE_FR_DAM', PSE_FR_WHL => 'PSE_FR_WHL', PSE_LE_FR_DAM => 'PSE_LE_FR_DAM', PSE_LE_FR_WHL => 'PSE_LE_FR_WHL', PSE_RI_FR_DAM => 'PSE_RI_FR_DAM', PSE_RI_FR_WHL => 'PSE_RI_FR_WHL', PSE_RE_DAM => 'PSE_RE_DAM', PSE_RE_WHL => 'PSE_RE_WHL', PSE_LE_RE_DAM => 'PSE_LE_RE_DAM', PSE_LE_RE_WHL => 'PSE_LE_RE_WHL', PSE_RI_RE_DAM => 'PSE_RI_RE_DAM', PSE_RI_RE_WHL => 'PSE_RI_RE_WHL', PSE_BODY_MINOR => 'PSE_BODY_MINOR', PSE_BODY_MAJOR => 'PSE_BODY_MAJOR', PSE_SETUP => 'PSE_SETUP', PSE_REFUEL => 'PSE_REFUEL', PSE_NUM => 'PSE_NUM'];
 
 // View identifiers
 
@@ -1906,7 +1906,7 @@ define('VIEW_DRIVER',   3);    // 3 - cockpit
 define('VIEW_CUSTOM',   4);    // 4 - custom
 define('VIEW_MAX',      5);
 define('VIEW_ANOTHER',  255); // viewing another car
-$VIEW = array(VIEW_FOLLOW => 'VIEW_FOLLOW', VIEW_HELI => 'VIEW_HELI', VIEW_CAM => 'VIEW_CAM', VIEW_DRIVER => 'VIEW_DRIVER', VIEW_CUSTOM => 'VIEW_CUSTOM', VIEW_MAX => 'VIEW_MAX', VIEW_ANOTHER => 'VIEW_ANOTHER');
+$VIEW = [VIEW_FOLLOW => 'VIEW_FOLLOW', VIEW_HELI => 'VIEW_HELI', VIEW_CAM => 'VIEW_CAM', VIEW_DRIVER => 'VIEW_DRIVER', VIEW_CUSTOM => 'VIEW_CUSTOM', VIEW_MAX => 'VIEW_MAX', VIEW_ANOTHER => 'VIEW_ANOTHER'];
 
 // Leave reasons
 
@@ -1921,7 +1921,7 @@ define('LEAVR_OOS',     7); // 7 - OOS
 define('LEAVR_JOOS',    8); // 8 - JOOS
 define('LEAVR_HACK',    9); // 9 - HACK
 define('LEAVR_NUM',     10);
-$LEAVR = array(LEAVR_DISCO => 'LEAVR_DISCO', LEAVR_TIMEOUT => 'LEAVR_TIMEOUT', LEAVR_LOSTCONN => 'LEAVR_LOSTCONN', LEAVR_KICKED => 'LEAVR_KICKED', LEAVR_BANNED => 'LEAVR_BANNED', LEAVR_SECURITY => 'LEAVR_SECURITY', LEAVR_CPW => 'LEAVR_CPW', LEAVR_OOS => 'LEAVR_OOS', LEAVR_JOOS => 'LEAVR_JOOS', LEAVR_HACK => 'LEAVR_HACK', LEAVR_NUM => 'LEAVR_NUM');
+$LEAVR = [LEAVR_DISCO => 'LEAVR_DISCO', LEAVR_TIMEOUT => 'LEAVR_TIMEOUT', LEAVR_LOSTCONN => 'LEAVR_LOSTCONN', LEAVR_KICKED => 'LEAVR_KICKED', LEAVR_BANNED => 'LEAVR_BANNED', LEAVR_SECURITY => 'LEAVR_SECURITY', LEAVR_CPW => 'LEAVR_CPW', LEAVR_OOS => 'LEAVR_OOS', LEAVR_JOOS => 'LEAVR_JOOS', LEAVR_HACK => 'LEAVR_HACK', LEAVR_NUM => 'LEAVR_NUM'];
 
 // Penalty values (VALID means the penalty can now be cleared)
 
@@ -1933,7 +1933,7 @@ define('PENALTY_SG_VALID',  4);    // 4
 define('PENALTY_30',        5);    // 5
 define('PENALTY_45',        6);    // 6
 define('PENALTY_NUM',       7);
-$PENALTY = array(PENALTY_NONE => 'PENALTY_NONE', PENALTY_DT => 'PENALTY_DT', PENALTY_DT_VALID => 'PENALTY_DT_VALID', PENALTY_SG => 'PENALTY_SG', PENALTY_SG_VALID => 'PENALTY_SG_VALID', PENALTY_30 => 'PENALTY_30', PENALTY_45 => 'PENALTY_45', PENALTY_NUM => 'PENALTY_NUM');
+$PENALTY = [PENALTY_NONE => 'PENALTY_NONE', PENALTY_DT => 'PENALTY_DT', PENALTY_DT_VALID => 'PENALTY_DT_VALID', PENALTY_SG => 'PENALTY_SG', PENALTY_SG_VALID => 'PENALTY_SG_VALID', PENALTY_30 => 'PENALTY_30', PENALTY_45 => 'PENALTY_45', PENALTY_NUM => 'PENALTY_NUM'];
 
 // Penalty reasons
 
@@ -1945,7 +1945,7 @@ define('PENR_SPEEDING',     4);    // 4 - speeding in pit lane
 define('PENR_STOP_SHORT',   5);    // 5 - stop-go pit stop too short
 define('PENR_STOP_LATE',    6);    // 6 - compulsory stop is too late
 define('PENR_NUM',          7);
-$PENR = array(PENR_UNKNOWN => 'PENR_UNKNOWN', PENR_ADMIN => 'PENR_ADMIN', PENR_WRONG_WAY => 'PENR_WRONG_WAY', PENR_FALSE_START => 'PENR_FALSE_START', PENR_SPEEDING => 'PENR_SPEEDING', PENR_STOP_SHORT => 'PENR_STOP_SHORT', PENR_STOP_LATE => 'PENR_STOP_LATE', PENR_NUM => 'PENR_NUM');
+$PENR = [PENR_UNKNOWN => 'PENR_UNKNOWN', PENR_ADMIN => 'PENR_ADMIN', PENR_WRONG_WAY => 'PENR_WRONG_WAY', PENR_FALSE_START => 'PENR_FALSE_START', PENR_SPEEDING => 'PENR_SPEEDING', PENR_STOP_SHORT => 'PENR_STOP_SHORT', PENR_STOP_LATE => 'PENR_STOP_LATE', PENR_NUM => 'PENR_NUM'];
 
 // Player flags
 
@@ -1963,7 +1963,7 @@ define('PIF_MOUSE',         1024);
 define('PIF_KB_NO_HELP',    2048);
 define('PIF_KB_STABILISED', 4096);
 define('PIF_CUSTOM_VIEW',   8192);
-$PIF = array(PIF_SWAPSIDE => 'PIF_SWAPSIDE', PIF_RESERVED_2 => 'PIF_RESERVED_2', PIF_RESERVED_4 => 'PIF_RESERVED_4', PIF_AUTOGEARS => 'PIF_AUTOGEARS', PIF_SHIFTER => 'PIF_SHIFTER', PIF_RESERVED_32 => 'PIF_RESERVED_32', PIF_HELP_B => 'PIF_HELP_B', PIF_AXIS_CLUTCH => 'PIF_AXIS_CLUTCH', PIF_INPITS => 'PIF_INPITS', PIF_AUTOCLUTCH => 'PIF_AUTOCLUTCH', PIF_MOUSE => 'PIF_MOUSE', PIF_KB_NO_HELP => 'PIF_KB_NO_HELP', PIF_KB_STABILISED => 'PIF_KB_STABILISED', PIF_CUSTOM_VIEW => 'PIF_CUSTOM_VIEW');
+$PIF = [PIF_SWAPSIDE => 'PIF_SWAPSIDE', PIF_RESERVED_2 => 'PIF_RESERVED_2', PIF_RESERVED_4 => 'PIF_RESERVED_4', PIF_AUTOGEARS => 'PIF_AUTOGEARS', PIF_SHIFTER => 'PIF_SHIFTER', PIF_RESERVED_32 => 'PIF_RESERVED_32', PIF_HELP_B => 'PIF_HELP_B', PIF_AXIS_CLUTCH => 'PIF_AXIS_CLUTCH', PIF_INPITS => 'PIF_INPITS', PIF_AUTOCLUTCH => 'PIF_AUTOCLUTCH', PIF_MOUSE => 'PIF_MOUSE', PIF_KB_NO_HELP => 'PIF_KB_NO_HELP', PIF_KB_STABILISED => 'PIF_KB_STABILISED', PIF_CUSTOM_VIEW => 'PIF_CUSTOM_VIEW'];
 
 // Tyre compounds (4 byte order : rear L, rear R, front L, front R)
 
@@ -1977,7 +1977,7 @@ define('TYRE_HYBRID',       6);    // 6
 define('TYRE_KNOBBLY',      7);    // 7
 define('TYRE_NUM',          8);
 define('NOT_CHANGED',       255);
-$TYRE = array(TYRE_R1 => 'TYRE_R1', TYRE_R2 => 'TYRE_R2', TYRE_R3 => 'TYRE_R3', TYRE_R4 => 'TYRE_R4', TYRE_ROAD_SUPER => 'TYRE_ROAD_SUPER', TYRE_ROAD_NORMAL => 'TYRE_ROAD_NORMAL', TYRE_HYBRID => 'TYRE_HYBRID', TYRE_KNOBBLY => 'TYRE_KNOBBLY', TYRE_NUM => 'TYRE_NUM', NOT_CHANGED => 'NOT_CHANGED');
+$TYRE = [TYRE_R1 => 'TYRE_R1', TYRE_R2 => 'TYRE_R2', TYRE_R3 => 'TYRE_R3', TYRE_R4 => 'TYRE_R4', TYRE_ROAD_SUPER => 'TYRE_ROAD_SUPER', TYRE_ROAD_NORMAL => 'TYRE_ROAD_NORMAL', TYRE_HYBRID => 'TYRE_HYBRID', TYRE_KNOBBLY => 'TYRE_KNOBBLY', TYRE_NUM => 'TYRE_NUM', NOT_CHANGED => 'NOT_CHANGED'];
 
 // Confirmation flags
 
@@ -1990,7 +1990,7 @@ define('CONF_PENALTY_45',   32);
 define('CONF_DID_NOT_PIT',  64);
 define('CONF_DISQ',         CONF_PENALTY_DT | CONF_PENALTY_SG | CONF_DID_NOT_PIT);
 define('CONF_TIME',         CONF_PENALTY_30 | CONF_PENALTY_45);
-$CONF = array(CONF_MENTIONED => 'CONF_MENTIONED', CONF_CONFIRMED => 'CONF_CONFIRMED', CONF_PENALTY_DT => 'CONF_PENALTY_DT', CONF_PENALTY_SG => 'CONF_PENALTY_SG', CONF_PENALTY_30 => 'CONF_PENALTY_30', CONF_PENALTY_45 => 'CONF_PENALTY_45', CONF_DID_NOT_PIT => 'CONF_DID_NOT_PIT', CONF_DISQ => 'CONF_DISQ', CONF_TIME => 'CONF_TIME');
+$CONF = [CONF_MENTIONED => 'CONF_MENTIONED', CONF_CONFIRMED => 'CONF_CONFIRMED', CONF_PENALTY_DT => 'CONF_PENALTY_DT', CONF_PENALTY_SG => 'CONF_PENALTY_SG', CONF_PENALTY_30 => 'CONF_PENALTY_30', CONF_PENALTY_45 => 'CONF_PENALTY_45', CONF_DID_NOT_PIT => 'CONF_DID_NOT_PIT', CONF_DISQ => 'CONF_DISQ', CONF_TIME => 'CONF_TIME'];
 
 // Race flags
 
@@ -2001,7 +2001,7 @@ define('HOSTF_MUST_PIT',    64);
 define('HOSTF_CAN_RESET',   128);
 define('HOSTF_FCV',         256);
 define('HOSTF_CRUISE',      512);
-$HOSTF = array(HOSTF_CAN_VOTE => 'HOSTF_CAN_VOTE', HOSTF_CAN_SELECT => 'HOSTF_CAN_SELECT', HOSTF_MID_RACE => 'HOSTF_MID_RACE', HOSTF_MUST_PIT => 'HOSTF_MUST_PIT', HOSTF_CAN_RESET => 'HOSTF_CAN_RESET', HOSTF_FCV => 'HOSTF_FCV', HOSTF_CRUISE => 'HOSTF_CRUISE');
+$HOSTF = [HOSTF_CAN_VOTE => 'HOSTF_CAN_VOTE', HOSTF_CAN_SELECT => 'HOSTF_CAN_SELECT', HOSTF_MID_RACE => 'HOSTF_MID_RACE', HOSTF_MUST_PIT => 'HOSTF_MUST_PIT', HOSTF_CAN_RESET => 'HOSTF_CAN_RESET', HOSTF_FCV => 'HOSTF_FCV', HOSTF_CRUISE => 'HOSTF_CRUISE'];
 
 // Passengers byte
 
@@ -2123,7 +2123,7 @@ define('JRR_RESET',         4);
 define('JRR_RESET_NO_REPAIR', 5);
 define('JRR_6',             6);
 define('JRR_7',             7);
-$JRR = array(JRR_REJECT => 'JRR_REJECT', JRR_SPAWN => 'JRR_SPAWN', JRR_2 => 'JRR_2', JRR_3 => 'JRR_3', JRR_RESET => 'JRR_RESET', JRR_RESET_NO_REPAIR => 'JRR_RESET_NO_REPAIR', JRR_6 => 'JRR_6', JRR_7 => 'JRR_7');
+$JRR = [JRR_REJECT => 'JRR_REJECT', JRR_SPAWN => 'JRR_SPAWN', JRR_2 => 'JRR_2', JRR_3 => 'JRR_3', JRR_RESET => 'JRR_RESET', JRR_RESET_NO_REPAIR => 'JRR_RESET_NO_REPAIR', JRR_6 => 'JRR_6', JRR_7 => 'JRR_7'];
 
 // AUTOCROSS
 // =========
@@ -2210,7 +2210,7 @@ class IS_NLP extends Struct // Node and Lap Packet - variable size
     public $ReqI;                        # 0 unless this is a reply to an TINY_NLP request
     public $NumP;                        # number of players in race
 
-    public $Info = array();                # node and lap of each player, 1 to 32 of these (NumP)
+    public $Info = [];                # node and lap of each player, 1 to 32 of these (NumP)
 
     public function unpack($rawPacket)
     {
@@ -2254,7 +2254,7 @@ define('CCI_YELLOW',    2);        // this car is slow or stopped and in a dange
 define('CCI_LAG',       32);    // this car is lagging (missing or delayed position packets)
 define('CCI_FIRST',     64);    // this is the first compcar in this set of MCI packets
 define('CCI_LAST',      128);    // this is the last compcar in this set of MCI packets
-$CCI = array(CCI_BLUE => 'CCI_BLUE', CCI_YELLOW => 'CCI_YELLOW', CCI_LAG => 'CCI_LAG', CCI_FIRST => 'CCI_FIRST', CCI_LAST => 'CCI_LAST');
+$CCI = [CCI_BLUE => 'CCI_BLUE', CCI_YELLOW => 'CCI_YELLOW', CCI_LAG => 'CCI_LAG', CCI_FIRST => 'CCI_FIRST', CCI_LAST => 'CCI_LAST'];
 
 // NOTE 2) Heading : 0 = world y axis direction, 32768 = 180 degrees, anticlockwise from above
 // NOTE 3) AngVel  : 0 = no change in heading,    8192 = 180 degrees per second anticlockwise
@@ -2269,7 +2269,7 @@ class IS_MCI extends Struct // Multi Car Info - if more than 8 in race then more
     public $ReqI;               # 0 unless this is a reply to an TINY_MCI request
     public $NumC;               # number of valid CompCar Structs in this packet
 
-    public $Info = array();     # car info for each player, 1 to 8 of these (NumC)
+    public $Info = [];     # car info for each player, 1 to 8 of these (NumC)
 
     public function unpack($rawPacket)
     {
@@ -2353,8 +2353,8 @@ class IS_CON extends Struct // CONtact - between two cars (A and B are sorted by
     public $SpClose;            # high 4 bits : reserved / low 12 bits : closing speed (10 = 1 m/s)
     public $Time;               # looping time stamp (hundredths - time since reset - like TINY_GTH)
 
-    public $A = array();
-    public $B = array();
+    public $A = [];
+    public $B = [];
 
     public function unpack($rawPacket)
     {
@@ -2428,7 +2428,7 @@ define('OBH_LAYOUT',        1);     // an added object
 define('OBH_CAN_MOVE',      2);     // a movable object
 define('OBH_WAS_MOVING',    4);     // was moving before this hit
 define('OBH_ON_SPOT',       8);     // object in original position
-$OBH = array(OBH_LAYOUT => 'OBH_LAYOUT', OBH_CAN_MOVE => 'OBH_CAN_MOVE', OBH_WAS_MOVING => 'OBH_WAS_MOVING', OBH_ON_SPOT => 'OBH_ON_SPOT');
+$OBH = [OBH_LAYOUT => 'OBH_LAYOUT', OBH_CAN_MOVE => 'OBH_CAN_MOVE', OBH_WAS_MOVING => 'OBH_WAS_MOVING', OBH_ON_SPOT => 'OBH_ON_SPOT'];
 
 // Set the ISP_HLV flag in the IS_ISI to receive reports of incidents that would violate HLVC
 
@@ -2499,7 +2499,7 @@ define('UCO_CIRCLE_ENTER',  0);     // entered a circle
 define('UCO_CIRCLE_LEAVE',  1);     // left a circle
 define('UCO_CP_FWD',        2);     // crossed cp in forward direction
 define('UCO_CP_REV',        3);     // crossed cp in reverse direction
-$UCO = array(UCO_CIRCLE_ENTER => 'UCO_CIRCLE_ENTER', UCO_CIRCLE_LEAVE => 'UCO_CIRCLE_LEAVE', UCO_CP_FWD => 'UCO_CP_FWD', UCO_CP_REV => 'UCO_CP_REV');
+$UCO = [UCO_CIRCLE_ENTER => 'UCO_CIRCLE_ENTER', UCO_CIRCLE_LEAVE => 'UCO_CIRCLE_LEAVE', UCO_CP_FWD => 'UCO_CP_FWD', UCO_CP_REV => 'UCO_CP_REV'];
 
 // Identifying an InSim checkpoint from the ObjectInfo :
 
@@ -2550,7 +2550,7 @@ class IS_CSC extends Struct // Car State Changed - reports a change in a car's s
 
 define('CSC_STOP',  0);
 define('CSC_START', 1);
-$CSC = array(CSC_STOP => 'CSC_STOP', CSC_START => 'CSC_START');
+$CSC = [CSC_STOP => 'CSC_STOP', CSC_START => 'CSC_START'];
 
 
 // OBJECT CONTROL - currently used for switching start lights
@@ -2582,7 +2582,7 @@ define('OCO_LIGHTS_RESET',  4);     // give up control of all lights
 define('OCO_LIGHTS_SET',    5);     // use Data byte to set the bulbs
 define('OCO_LIGHTS_UNSET',  6);     // give up control of the specified lights
 define('OCO_NUM',           7);
-$OCO = array(OCO_ZERO => 'OCO_ZERO', OCO_1 => 'OCO_1', OCO_2 => 'OCO_2', OCO_3 => 'OCO_3', OCO_LIGHTS_RESET => 'OCO_LIGHTS_RESET', OCO_LIGHTS_SET => 'OCO_LIGHTS_SET', OCO_LIGHTS_UNSET => 'OCO_LIGHTS_UNSET', OCO_NUM => 'OCO_NUM');
+$OCO = [OCO_ZERO => 'OCO_ZERO', OCO_1 => 'OCO_1', OCO_2 => 'OCO_2', OCO_3 => 'OCO_3', OCO_LIGHTS_RESET => 'OCO_LIGHTS_RESET', OCO_LIGHTS_SET => 'OCO_LIGHTS_SET', OCO_LIGHTS_UNSET => 'OCO_LIGHTS_UNSET', OCO_NUM => 'OCO_NUM'];
 
 // Index byte specifies which lights you want to override
 
@@ -2633,7 +2633,7 @@ class IS_AXM extends Struct // AutoX Multiple objects - variable size
     public $PMOFlags;           # see below
     private $Sp3;
 
-    public $Info = array();     # info about each object, 0 to 30 of these
+    public $Info = [];     # info about each object, 0 to 30 of these
 
     public function pack()
     {
@@ -2671,7 +2671,7 @@ define('PMO_TINY_AXM',      4);     // 4 - a reply to a TINY_AXM request
 define('PMO_TTC_SEL',       5);     // 5 - a reply to a TTC_SEL request
 define('PMO_SELECTION',     6);     // 6 - set the current editor selection
 define('PMO_NUM',           7);
-$PMO = array(PMO_LOADING_FILE => 'PMO_LOADING_FILE', PMO_ADD_OBJECTS => 'PMO_ADD_OBJECTS', PMO_DEL_OBJECTS => 'PMO_DEL_OBJECTS', PMO_CLEAR_ALL => 'PMO_CLEAR_ALL', PMO_TINY_AXM => 'PMO_TINY_AXM', PMO_TTC_SEL => 'PMO_TTC_SEL', PMO_SELECTION => 'PMO_SELECTION', PMO_NUM => 'PMO_NUM');
+$PMO = [PMO_LOADING_FILE => 'PMO_LOADING_FILE', PMO_ADD_OBJECTS => 'PMO_ADD_OBJECTS', PMO_DEL_OBJECTS => 'PMO_DEL_OBJECTS', PMO_CLEAR_ALL => 'PMO_CLEAR_ALL', PMO_TINY_AXM => 'PMO_TINY_AXM', PMO_TTC_SEL => 'PMO_TTC_SEL', PMO_SELECTION => 'PMO_SELECTION', PMO_NUM => 'PMO_NUM'];
 
 // Info about the PMOFlags byte :
 
@@ -2952,13 +2952,13 @@ define('RIP_DEST_OOB',      8);    //  8 - destination is beyond replay length
 define('RIP_UNKNOWN',       9);    //  9 - unknown error found starting replay
 define('RIP_USER',          10);    // 10 - replay search was terminated by user
 define('RIP_OOS',           11);    // 11 - can't reach destination - SPR is out of sync
-$RIP = array(RIP_OK => 'RIP_OK', RIP_ALREADY => 'RIP_ALREADY', RIP_DEDICATED => 'RIP_DEDICATED', RIP_WRONG_MODE => 'RIP_WRONG_MODE', RIP_NOT_REPLAY => 'RIP_NOT_REPLAY', RIP_CORRUPTED => 'RIP_CORRUPTED', RIP_NOT_FOUND => 'RIP_NOT_FOUND', RIP_UNLOADABLE => 'RIP_UNLOADABLE', RIP_DEST_OOB => 'RIP_DEST_OOB', RIP_UNKNOWN => 'RIP_UNKNOWN', RIP_USER => 'RIP_USER', RIP_OOS => 'RIP_OOS');
+$RIP = [RIP_OK => 'RIP_OK', RIP_ALREADY => 'RIP_ALREADY', RIP_DEDICATED => 'RIP_DEDICATED', RIP_WRONG_MODE => 'RIP_WRONG_MODE', RIP_NOT_REPLAY => 'RIP_NOT_REPLAY', RIP_CORRUPTED => 'RIP_CORRUPTED', RIP_NOT_FOUND => 'RIP_NOT_FOUND', RIP_UNLOADABLE => 'RIP_UNLOADABLE', RIP_DEST_OOB => 'RIP_DEST_OOB', RIP_UNKNOWN => 'RIP_UNKNOWN', RIP_USER => 'RIP_USER', RIP_OOS => 'RIP_OOS'];
 
 // Options byte : some options
 
 define('RIPOPT_LOOP',   1);     // replay will loop if this bit is set
 define('RIPOPT_SKINS',  2);     // set this bit to download missing skins
-$RIPOPT = array(RIPOPT_LOOP => 'RIPOPT_LOOP', RIPOPT_SKINS => 'RIPOPT_SKINS');
+$RIPOPT = [RIPOPT_LOOP => 'RIPOPT_LOOP', RIPOPT_SKINS => 'RIPOPT_SKINS'];
 
 // SCREENSHOTS
 // ===========
@@ -2992,7 +2992,7 @@ define('SSH_OK',        0);    //  0 - OK : completed inStruction
 define('SSH_DEDICATED', 1);    //  1 - can't save a screenshot - dedicated host
 define('SSH_CORRUPTED', 2);    //  2 - IS_SSH corrupted (e.g. BMP does not end with zero)
 define('SSH_NO_SAVE',   3);    //  3 - could not save the screenshot
-$SSH = array(SSH_OK => 'SSH_OK', SSH_DEDICATED => 'SSH_DEDICATED', SSH_CORRUPTED => 'SSH_CORRUPTED', SSH_NO_SAVE => 'SSH_NO_SAVE');
+$SSH = [SSH_OK => 'SSH_OK', SSH_DEDICATED => 'SSH_DEDICATED', SSH_CORRUPTED => 'SSH_CORRUPTED', SSH_NO_SAVE => 'SSH_NO_SAVE'];
 
 // BUTTONS
 // =======
@@ -3014,7 +3014,7 @@ define('IS_X_MIN',  0);
 define('IS_X_MAX',  110);
 define('IS_Y_MIN',  30);
 define('IS_Y_MAX',  170);
-$IS = array(IS_X_MIN => 'IS_X_MIN', IS_X_MAX => 'IS_X_MAX', IS_Y_MIN => 'IS_Y_MIN', IS_Y_MAX => 'IS_Y_MAX');
+$IS = [IS_X_MIN => 'IS_X_MIN', IS_X_MAX => 'IS_X_MAX', IS_Y_MIN => 'IS_Y_MIN', IS_Y_MAX => 'IS_Y_MAX'];
 
 // If you draw buttons in this area, the area will be kept clear to
 // avoid overlapping LFS buttons with your InSim program's buttons.
@@ -3044,7 +3044,7 @@ define('BFN_DEL_BTN',       0);     //  0 - inStruction     : delete one button 
 define('BFN_CLEAR',         1);     //  1 - inStruction        : clear all buttons made by this insim instance
 define('BFN_USER_CLEAR',    2);     //  2 - info            : user cleared this insim instance's buttons
 define('BFN_REQUEST',       3);     //  3 - user request    : SHIFT+B or SHIFT+I - request for buttons
-$BFN = array(BFN_DEL_BTN => 'BFN_DEL_BTN', BFN_CLEAR => 'BFN_CLEAR', BFN_USER_CLEAR => 'BFN_USER_CLEAR', BFN_REQUEST => 'BFN_REQUEST');
+$BFN = [BFN_DEL_BTN => 'BFN_DEL_BTN', BFN_CLEAR => 'BFN_CLEAR', BFN_USER_CLEAR => 'BFN_USER_CLEAR', BFN_REQUEST => 'BFN_REQUEST'];
 
 // NOTE : BFN_REQUEST allows the user to bring up buttons with SHIFT+B or SHIFT+I
 
@@ -3110,7 +3110,7 @@ class IS_BTN extends Struct // BuTtoN - button header - followed by 0 to 240 cha
 // Inst byte : mainly used internally by InSim but also provides some extra user flags
 
 define('INST_ALWAYS_ON',    128);       // if this bit is set the button is visible in all screens
-$INST = array(INST_ALWAYS_ON => 'INST_ALWAYS_ON');
+$INST = [INST_ALWAYS_ON => 'INST_ALWAYS_ON'];
 
 // NOTE : You should not use INST_ALWAYS_ON for most buttons.  This is a special flag for buttons
 // that really must be on in all screens (including the garage and options screens).  You will
@@ -3167,7 +3167,7 @@ define('ISB_LMB',   1);     // left click
 define('ISB_RMB',   2);     // right click
 define('ISB_CTRL',  4);     // ctrl + click
 define('ISB_SHIFT', 8);     // shift + click
-$ISB = array(ISB_LMB => 'ISB_LMB', ISB_RMB => 'ISB_RMB', ISB_CTRL => 'ISB_CTRL', ISB_SHIFT => 'ISB_SHIFT');
+$ISB = [ISB_LMB => 'ISB_LMB', ISB_RMB => 'ISB_RMB', ISB_CTRL => 'ISB_CTRL', ISB_SHIFT => 'ISB_SHIFT'];
 
 // If the TypeIn byte is set in IS_BTN the user can type text into the button
 // In that case no IS_BTC is sent - an IS_BTT is sent when the user presses ENTER
@@ -3313,7 +3313,7 @@ class OutGaugePack extends Struct
 define('OG_TURBO',  8192);    // show turbo gauge
 define('OG_KM',     16384);    // if not set - user prefers MILES
 define('OG_BAR',    32768);    // if not set - user prefers PSI
-$OG = array(OG_TURBO => 'OG_TURBO', OG_KM => 'OG_KM', OG_BAR => 'OG_BAR');
+$OG = [OG_TURBO => 'OG_TURBO', OG_KM => 'OG_KM', OG_BAR => 'OG_BAR'];
 
 // DL_x - bits for OutGaugePack DashLights and ShowLights
 
@@ -3330,7 +3330,7 @@ define('DL_BATTERY',    (1 << 10));     // bit 9    - battery warning
 define('DL_ABS',        (1 << 11));     // bit 10    - ABS active or switched off
 define('DL_SPARE',      (1 << 12));     // bit 11
 define('DL_NUM',        13);
-$DL = array(DL_SHIFT => 'DL_SHIFT', DL_FULLBEAM => 'DL_FULLBEAM', DL_HANDBRAKE => 'DL_HANDBRAKE', DL_PITSPEED => 'DL_PITSPEED', DL_TC => 'DL_TC', DL_SIGNAL_L => 'DL_SIGNAL_L', DL_SIGNAL_R => 'DL_SIGNAL_R', DL_SIGNAL_ANY => 'DL_SIGNAL_ANY', DL_OILWARN => 'DL_OILWARN', DL_BATTERY => 'DL_BATTERY', DL_ABS => 'DL_ABS', DL_SPARE => 'DL_SPARE', DL_NUM => 'DL_NUM');
+$DL = [DL_SHIFT => 'DL_SHIFT', DL_FULLBEAM => 'DL_FULLBEAM', DL_HANDBRAKE => 'DL_HANDBRAKE', DL_PITSPEED => 'DL_PITSPEED', DL_TC => 'DL_TC', DL_SIGNAL_L => 'DL_SIGNAL_L', DL_SIGNAL_R => 'DL_SIGNAL_R', DL_SIGNAL_ANY => 'DL_SIGNAL_ANY', DL_OILWARN => 'DL_OILWARN', DL_BATTERY => 'DL_BATTERY', DL_ABS => 'DL_ABS', DL_SPARE => 'DL_SPARE', DL_NUM => 'DL_NUM'];
 
 //////
 #endif
@@ -3366,7 +3366,7 @@ define('IRP_HLR',   252);       // Send : To request a hostlist
 define('IRP_HOS',   253);       // Receive : Hostlist info
 define('IRP_SEL',   254);       // Send : To select a host
 define('IRP_ERR',   255);       // Receive : An error number
-$IRP = array(IRP_ARQ => 'IRP_ARQ', IRP_ARP => 'IRP_ARP', IRP_HLR => 'IRP_HLR', IRP_HOS => 'IRP_HOS', IRP_SEL => 'IRP_SEL', IRP_ERR => 'IRP_ERR');
+$IRP = [IRP_ARQ => 'IRP_ARQ', IRP_ARP => 'IRP_ARP', IRP_HLR => 'IRP_HLR', IRP_HOS => 'IRP_HOS', IRP_SEL => 'IRP_SEL', IRP_ERR => 'IRP_ERR'];
 
 // To request a hostlist from the Relay, send this packet :
 
@@ -3406,7 +3406,7 @@ define('HOS_S1',        4);         // Bit is set if host is S1
 define('HOS_S2',        8);         // Bit is set if host is S2
 define('HOS_FIRST',     64);        // Indicates the first host in the list
 define('HOS_LAST',      128);       // Indicates the last host in the list
-$HOS = array(HOS_SPECPASS => 'HOS_SPECPASS', HOS_LICENSED => 'HOS_LICENSED', HOS_S1 => 'HOS_S1', HOS_S2 => 'HOS_S2', HOS_FIRST => 'HOS_FIRST', HOS_LAST => 'HOS_LAST');
+$HOS = [HOS_SPECPASS => 'HOS_SPECPASS', HOS_LICENSED => 'HOS_LICENSED', HOS_S1 => 'HOS_S1', HOS_S2 => 'HOS_S2', HOS_FIRST => 'HOS_FIRST', HOS_LAST => 'HOS_LAST'];
 
 
 class IR_HOS extends Struct // Hostlist (hosts connected to the Relay)
@@ -3419,7 +3419,7 @@ class IR_HOS extends Struct // Hostlist (hosts connected to the Relay)
     public $ReqI;               # As given in IR_HLR
     public $NumHosts;           # Number of hosts described in this packet
 
-    public $Info = array();     # Host info for every host in the Relay. 1 to 6 of these in a IR_HOS
+    public $Info = [];     # Host info for every host in the Relay. 1 to 6 of these in a IR_HOS
 
 
 
@@ -3504,7 +3504,7 @@ define('IR_ERR_HOSTNAME',   3);     // Wrong hostname given by client
 define('IR_ERR_ADMIN',      4);     // Wrong admin pass given by client
 define('IR_ERR_SPEC',       5);     // Wrong spec pass given by client
 define('IR_ERR_NOSPEC',     6);     // Spectator pass required, but none given
-$IR = array(IR_ERR_PACKET => 'IR_ERR_PACKET', IR_ERR_PACKET2 => 'IR_ERR_PACKET2', IR_ERR_HOSTNAME => 'IR_ERR_HOSTNAME', IR_ERR_ADMIN => 'IR_ERR_ADMIN', IR_ERR_SPEC => 'IR_ERR_SPEC', IR_ERR_NOSPEC => 'IR_ERR_NOSPEC');
+$IR = [IR_ERR_PACKET => 'IR_ERR_PACKET', IR_ERR_PACKET2 => 'IR_ERR_PACKET2', IR_ERR_HOSTNAME => 'IR_ERR_HOSTNAME', IR_ERR_ADMIN => 'IR_ERR_ADMIN', IR_ERR_SPEC => 'IR_ERR_SPEC', IR_ERR_NOSPEC => 'IR_ERR_NOSPEC'];
 
 /*
 ==============================================
@@ -3541,7 +3541,7 @@ TINY_NONE    // for relay-connection maintenance
 /* Start of PRISM PACKET FOOTER */
 define('OSP',   -1);        // -1 - info            : OutSimPacket - MOTION SIMULATOR SUPPORT
 define('OGP',   -2);        // -2 - info            : OutGauge - EXTERNAL DASHBOARD SUPPORT
-$SPECIAL = array(OSP => 'OutSimPack', OGP => 'OutGaugePack');
+$SPECIAL = [OSP => 'OutSimPack', OGP => 'OutGaugePack'];
 /* Packet Handler Help */
 $TYPEs = $ISP + $IRP;
 foreach ($TYPEs as $Type => $Name) {
